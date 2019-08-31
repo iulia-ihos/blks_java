@@ -9,9 +9,33 @@ public class TileDTO implements Serializable{
 	
 	private Long idTile;
 	private TileColorEnum color;
-	private boolean isFlippedHorizontally;
-	private boolean isFlippedVertically;
-	private int angle;
+	private TileDetailsDTO tileDetails;
+	
+	public TileDTO(Long idTile, TileColorEnum color, TileDetailsDTO tileDetails) {
+		this.idTile = idTile;
+		this.color = color;
+		this.tileDetails = tileDetails;
+	}
+	
+	public Long getIdTile() {
+		return idTile;
+	}
+	public void setIdTile(Long idTile) {
+		this.idTile = idTile;
+	}
+	public TileColorEnum getColor() {
+		return color;
+	}
+	public void setColor(TileColorEnum color) {
+		this.color = color;
+	}
+	public TileDetailsDTO getTileDetails() {
+		return tileDetails;
+	}
+	public void setTileDetails(TileDetailsDTO tileDetails) {
+		this.tileDetails = tileDetails;
+	}
+	
 	
 	
 	

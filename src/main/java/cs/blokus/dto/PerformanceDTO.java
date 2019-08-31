@@ -1,68 +1,45 @@
-package cs.blokus.entity;
+package cs.blokus.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-@Entity
-@Table(name = "userPerformance")
-public class Performance {
-	
-	@Id
+@SuppressWarnings("serial")
+public class PerformanceDTO implements Serializable{
+
 	private Long idUser;
-	
-	@OneToOne
-    @JoinColumn
-    @MapsId
-    private User user;
-	
-	@Column(name = "totalGames")
+    private UserDTO user;
 	private int numberGamesPlayed;
-	
-	@Column(name = "numberGamesWon")
 	private int numberGamesWon;
 	
-	public Performance(Long idUser, User user, int numberGamesPlayed, int numberGamesWon) {
+	public PerformanceDTO(Long idUser, UserDTO user, int numberGamesPlayed, int numberGamesWon) {
 		this.idUser = idUser;
 		this.user = user;
 		this.numberGamesPlayed = numberGamesPlayed;
 		this.numberGamesWon = numberGamesWon;
 	}
-
-	public Performance() {}
+	
+	public PerformanceDTO() {}
 	
 	public Long getIdUser() {
 		return idUser;
 	}
-
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
-
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
-
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-
 	public int getNumberGamesPlayed() {
 		return numberGamesPlayed;
 	}
-
 	public void setNumberGamesPlayed(int numberGamesPlayed) {
 		this.numberGamesPlayed = numberGamesPlayed;
 	}
-
 	public int getNumberGamesWon() {
 		return numberGamesWon;
 	}
-
 	public void setNumberGamesWon(int numberGamesWon) {
 		this.numberGamesWon = numberGamesWon;
 	}

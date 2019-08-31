@@ -8,12 +8,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "")
+@Table(name = "move")
 public class Move {
-	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Long idMove;
 	
 	@EmbeddedId
 	private MoveId move;
@@ -28,6 +24,47 @@ public class Move {
 	
 	@OneToOne
 	@JoinColumn(name = "idBoardPosition")
-	private BoardPosition position; 
+	private BoardPosition position;
+
+	public Move(Tile tile, Game game, BoardPosition position) {
+		this.tile = tile;
+		this.game = game;
+		this.position = position;
+	}
+	
+	public Move() {}
+
+	public MoveId getMove() {
+		return move;
+	}
+
+	public void setMove(MoveId move) {
+		this.move = move;
+	}
+
+	public Tile getTile() {
+		return tile;
+	}
+
+	public void setTile(Tile tile) {
+		this.tile = tile;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public BoardPosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(BoardPosition position) {
+		this.position = position;
+	} 
+	
 	
 }

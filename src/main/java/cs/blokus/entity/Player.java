@@ -5,11 +5,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import cs.blokus.enums.TileColorEnum;
@@ -19,23 +16,16 @@ import cs.blokus.enums.TileColorEnum;
 
 public class Player {
 	
-	/*@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idPlayer;
-	*/
-	
-	//@Id	
+	@EmbeddedId
+	private PlayerId player;
+
 	@ManyToOne
 	@JoinColumn(name = "idUser", nullable = false, insertable = false, updatable = false)
 	private User user;
 	
-//	@Id
 	@ManyToOne
 	@JoinColumn(name = "idGame", nullable = false, insertable = false, updatable = false)
 	private Game game;
-	
-	@EmbeddedId
-	private PlayerId player;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "color")
@@ -43,20 +33,59 @@ public class Player {
 	
 	@Column(name = "points")
 	private int points;
-	
-	/*@OneToOne(mappedBy = "redPlayer")
-	private GamePlayers gameRed; 
-	
-	@OneToOne(mappedBy = "bluePlayer")
-	private GamePlayers gameBlue; 
-	
-	@OneToOne(mappedBy = "greenPlayer")
-	private GamePlayers gameGreen; 
-	
-	@OneToOne(mappedBy = "yellowPlayer")
-	private GamePlayers gameYellow; */
-	
-	/*@OneToOne(mappedBy = "winner")
-	private Game gameWinner; */
 
+
+	public Player(PlayerId player, User user, Game game, TileColorEnum color, int points) {
+		this.player = player;
+		this.user = user;
+		this.game = game;
+		this.color = color;
+		this.points = points;
+	}
+	
+	public Player() {
+
+	}
+
+	public PlayerId getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(PlayerId player) {
+		this.player = player;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public TileColorEnum getColor() {
+		return color;
+	}
+
+	public void setColor(TileColorEnum color) {
+		this.color = color;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	
 }

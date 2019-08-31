@@ -11,9 +11,6 @@ public class MoveId implements Serializable{
 	private Long idGame;
 	private Long idTile;
 	
-	
-	
-
 	public MoveId(Long idGame, Long idTile) {
 		this.idGame = idGame;
 		this.idTile = idTile;

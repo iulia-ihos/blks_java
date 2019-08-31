@@ -28,26 +28,68 @@ public class Tile {
 	@Column(name = "color")
 	private TileColorEnum color;
 	
-	@Column(name = "name")
-	private String name;
-	
 	@ManyToOne
 	@JoinColumn(name = "tileName")
 	private TileDetails tileDetails;
 	
-	/*@ManyToMany
-	@JoinTable(
-	  name = "tile_components", 
-	  joinColumns = @JoinColumn(name = "idTile"), 
-	  inverseJoinColumns = @JoinColumn(name = "idSquare"))
-	List<Square> components;*/
-	
-/*
-	@OneToMany(mappedBy = "tile")
-	List<TileSquare> tileSquares;*/
 	
 	@OneToMany(mappedBy = "tile")
 	private List<Move> moves;
+	
+	
+
+
+	public Tile(Long idTile, TileColorEnum color, TileDetails tileDetails) {
+		this.idTile = idTile;
+		this.color = color;
+		this.tileDetails = tileDetails;
+	}
+	
+	public Tile() {
+		
+	}
+
+
+	public Long getIdTile() {
+		return idTile;
+	}
+
+
+	public void setIdTile(Long idTile) {
+		this.idTile = idTile;
+	}
+
+
+	public TileColorEnum getColor() {
+		return color;
+	}
+
+
+	public void setColor(TileColorEnum color) {
+		this.color = color;
+	}
+
+
+	public TileDetails getTileDetails() {
+		return tileDetails;
+	}
+
+
+	public void setTileDetails(TileDetails tileDetails) {
+		this.tileDetails = tileDetails;
+	}
+
+
+	public List<Move> getMoves() {
+		return moves;
+	}
+
+
+	public void setMoves(List<Move> moves) {
+		this.moves = moves;
+	}
+	
+	
 
 
 }

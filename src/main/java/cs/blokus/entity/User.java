@@ -36,6 +36,7 @@ public class User {
 	@Column(name = "role")
 	private RolesEnum role;
 	
+	
 	@OneToOne(mappedBy = "user")
 	private Performance performance; 
 	
@@ -45,6 +46,16 @@ public class User {
 	@OneToMany(mappedBy = "winner")
 	private List<Game> gamesWon;
 	
+
+	public User(Long idUser, String email, String username, String password, RolesEnum role) {
+		this.idUser = idUser;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+	
+	public User() {}
 
 	public RolesEnum getRole() {
 		return role;
@@ -85,4 +96,30 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Performance getPerformance() {
+		return performance;
+	}
+
+	public void setPerformance(Performance performance) {
+		this.performance = performance;
+	}
+
+	public List<Player> getPlayerList() {
+		return playerList;
+	}
+
+	public void setPlayerList(List<Player> playerList) {
+		this.playerList = playerList;
+	}
+
+	public List<Game> getGamesWon() {
+		return gamesWon;
+	}
+
+	public void setGamesWon(List<Game> gamesWon) {
+		this.gamesWon = gamesWon;
+	}
+	
+	
 }

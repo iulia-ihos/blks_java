@@ -23,4 +23,40 @@ public class TileSquare {
 	
 	
 
+	public TileSquare(TileSquareId tileSquare, TileDetails tileDetails, Square square) {
+		this.tileSquare = tileSquare;
+		this.tileDetails = tileDetails;
+		this.square = square;
+	}
+	
+	public TileSquare() {}
+
+	public TileSquareId getTileSquare() {
+		return tileSquare;
+	}
+
+	public void setTileSquare(TileSquareId tileSquare) {
+		this.tileSquare = tileSquare;
+	}
+
+	public TileDetails getTileDetails() {
+		return tileDetails;
+	}
+
+	public void setTileDetails(TileDetails tileDetails) {
+		this.tileDetails = tileDetails;
+	}
+
+	public Square getSquare() {
+		return square;
+	}
+
+	public void setSquare(Square square) {
+		this.square = square;
+	}
+	
+	
+	
+	
+
 }
