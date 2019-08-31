@@ -1,4 +1,4 @@
-package cs.blokus.entity;
+package cs.blokus.enums;
 
 public enum RolesEnum {
 	PLAYER, ADMIN

@@ -36,11 +36,34 @@ public class UserController {
 	    }
 	    
 	    @Autowired
-		AuthenticationManager authenticationManager;
+		private AuthenticationManager authenticationManager;
+	   /* 
+	    @Autowired
+	    private SquareCoordsDAO scd; */
 	    
 
 		@Autowired
 		JwtProvider jwtProvider;
+		
+//		private void populateSquareCoords() {
+//			this.scd.save(new SquareCoords("top0Left0", 0, 0));
+//			this.scd.save(new SquareCoords("top0Left1", 0, 1));
+//			this.scd.save(new SquareCoords("top0Left2", 0, 2));
+//			this.scd.save(new SquareCoords("top0Left3", 0, 3));
+//			this.scd.save(new SquareCoords("top0Left4", 0, 4));
+//			
+//			this.scd.save(new SquareCoords("top1Left0", 1, 0));
+//			this.scd.save(new SquareCoords("top1Left1", 1, 1));
+//			this.scd.save(new SquareCoords("top1Left2", 1, 2));
+//			this.scd.save(new SquareCoords("top1Left3", 1, 3));
+//			
+//			this.scd.save(new SquareCoords("top2Left0", 2, 0));
+//			this.scd.save(new SquareCoords("top2Left1", 2, 1));
+//			this.scd.save(new SquareCoords("top2Left3", 2, 3));
+//			
+//			this.scd.save(new SquareCoords("top3Left2", 3, 2));
+//		
+//		}
 
 	    @PostMapping("login")
 	    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -48,9 +71,12 @@ public class UserController {
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+			System.out.println(authentication);
 
 			String jwt = jwtProvider.generateJwtToken(authentication);
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			
 		
 			return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
 		}

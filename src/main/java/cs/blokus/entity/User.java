@@ -1,5 +1,7 @@
 package cs.blokus.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,7 +9,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import cs.blokus.enums.RolesEnum;
 
 @Entity
 @Table(name = "user")
@@ -29,6 +35,16 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role")
 	private RolesEnum role;
+	
+	@OneToOne(mappedBy = "user")
+	private Performance performance; 
+	
+	@OneToMany(mappedBy = "user")
+	private List<Player> playerList;
+	
+	@OneToMany(mappedBy = "winner")
+	private List<Game> gamesWon;
+	
 
 	public RolesEnum getRole() {
 		return role;

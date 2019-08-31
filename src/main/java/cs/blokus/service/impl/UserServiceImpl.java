@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 import cs.blokus.dao.UserDAO;
 import cs.blokus.dto.UserDTO;
+import cs.blokus.encryption.Encryption;
 import cs.blokus.entity.User;
 import cs.blokus.exceptions.DataDuplicateException;
 import cs.blokus.service.IUserService;
-import cs.blokusencryption.Encryption;
 
 @Component
 public class UserServiceImpl implements IUserService{
@@ -21,7 +21,7 @@ public class UserServiceImpl implements IUserService{
 	private UserDAO userDAO;
 
 	public UserDTO create(UserDTO user) throws DataDuplicateException {
-		System.out.println(this.userDAO.findByUsername("a"));
+
 		if(this.userDAO.findByUsername(user.getUsername()) != null) {
 			throw new DataDuplicateException("The username already exists");
 		}

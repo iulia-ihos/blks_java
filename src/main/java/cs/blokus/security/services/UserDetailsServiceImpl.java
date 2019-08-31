@@ -19,9 +19,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User user = userDAO.findByEmail(username);
+		User user = userDAO.findByUsername(username);
 		if (user == null)
-			throw new UsernameNotFoundException("User Not Found with email : " + username);
+			throw new UsernameNotFoundException("User Not Found with username : " + username);
 
 		return UserDetailsImpl.build(user);
 	}

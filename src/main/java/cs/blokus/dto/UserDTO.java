@@ -2,9 +2,7 @@ package cs.blokus.dto;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import cs.blokus.entity.RolesEnum;
+import cs.blokus.enums.RolesEnum;
 
 @SuppressWarnings("serial")
 public class UserDTO implements Serializable {

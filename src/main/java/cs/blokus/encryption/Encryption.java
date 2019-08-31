@@ -1,4 +1,4 @@
-package cs.blokusencryption;
+package cs.blokus.encryption;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
