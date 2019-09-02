@@ -41,6 +41,11 @@ public class SquareDTO implements Serializable{
 	public void setLeft(int left) {
 		this.left = left;
 	}
+
+	@Override
+	public String toString() {
+		return "SquareDTO [idSquare=" + idSquare + ", top=" + top + ", left=" + left + "]";
+	}
 	
 	
 

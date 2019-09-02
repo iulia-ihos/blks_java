@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -55,13 +55,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         	.antMatchers("/user/login").permitAll()
         	.antMatchers("/user/register").permitAll()
+        	.antMatchers("/stomp-endpoint/**").permitAll()
         	.anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(authenticationJwtTokenFilter(), 
-        		UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(authenticationJwtTokenFilter(), 
+        		AnonymousAuthenticationFilter.class);
     }
 
     private PasswordEncoder passwordEncoder() {
@@ -99,6 +100,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
        config.addAllowedMethod(HttpMethod.GET);
        config.addAllowedMethod(HttpMethod.PUT);
        config.addAllowedMethod(HttpMethod.DELETE);
+       config.addAllowedOrigin("http://localhost:4200");
+       config.addAllowedHeader("Origin");
+       config.addAllowedHeader("Authorization");
+       //allowedHeaders("Accept", "Content-Type", "X-Auth-Token");
        source.registerCorsConfiguration("/**", config);
        CorsFilter bean = new CorsFilter(source);
        return bean;

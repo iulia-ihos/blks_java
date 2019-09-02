@@ -17,6 +17,8 @@ public class TileDTO implements Serializable{
 		this.tileDetails = tileDetails;
 	}
 	
+	public TileDTO() {}
+	
 	public Long getIdTile() {
 		return idTile;
 	}
@@ -35,10 +37,11 @@ public class TileDTO implements Serializable{
 	public void setTileDetails(TileDetailsDTO tileDetails) {
 		this.tileDetails = tileDetails;
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "TileDTO [idTile=" + idTile + ", color=" + color + ", tileDetails=" + tileDetails + "]";
+	}
+		
 
 }

@@ -33,10 +33,17 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		try {
-			String jwt = getJwt(request);
-			if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
-				String username = tokenProvider.getUserNameFromJwtToken(jwt);
+		try {System.out.println("token  "  + request.getParameter("token"));
+			
+			String wsToken = request.getParameter("token");
+			String token = "";
+			if(wsToken!=null){
+				token = wsToken;
+			}
+			else token = getJwt(request);
+			
+			if (tokenProvider.validateJwtToken(token)) {
+				String username = tokenProvider.getUserNameFromJwtToken(token);
 				
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -44,10 +51,13 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+				
+				response.setHeader("Access-Control-Allow-Credentials", "true");
+				response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
 				
 			}
 		} catch (Exception e) {
+			
 			logger.error("Can NOT set user authentication -> Message: {}", e);
 		}
 

@@ -44,8 +44,12 @@ public class TileDetailsDTO implements Serializable{
 	public void setTileSquares(List<TileSquareDTO> tileSquares) {
 		this.tileSquares = tileSquares;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "TileDetailsDTO [name=" + name + ", numberSquares=" + numberSquares + ", tileSquares=" + tileSquares
+				+ "]";
+	}
 	
 	
 }

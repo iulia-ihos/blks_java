@@ -8,6 +8,6 @@ import cs.blokus.entity.Square;
 
 @Repository
 @Transactional
-public interface SquareCoordsDAO extends JpaRepository<Square, String>{
+public interface SquareDAO extends JpaRepository<Square, String>{
 
 }

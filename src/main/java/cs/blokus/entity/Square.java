@@ -69,6 +69,11 @@ public class Square {
 	public void setTileSquares(List<TileSquare> tileSquares) {
 		this.tileSquares = tileSquares;
 	}
+
+	@Override
+	public String toString() {
+		return "Square [idSquare=" + idSquare + ", top=" + top + ", left=" + left + "]";
+	}
 	
 	
 	

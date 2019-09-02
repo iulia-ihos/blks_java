@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cs.blokus.dto.PerformanceDTO;
 import cs.blokus.dto.UserDTO;
 import cs.blokus.exceptions.DataDuplicateException;
 import cs.blokus.security.jwt.JwtProvider;
@@ -97,5 +98,19 @@ public class UserController {
 		@PostMapping("register")
 		public UserDTO register(@RequestBody UserDTO user) throws DataDuplicateException { 
 			return userService.create(user);	
-		}   
+		}  
+		
+		
+		
+		@GetMapping("/score")
+		public PerformanceDTO getScore(){ 
+			PerformanceDTO perf = new PerformanceDTO();
+			UserDTO user = new UserDTO();
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			user.setUsername(userDetails.getUsername());
+			perf.setUser(user);
+			perf.setNumberGamesPlayed(1);
+			perf.setNumberGamesWon(1);
+			return perf;	
+		}  
 }

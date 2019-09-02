@@ -19,8 +19,7 @@ public class TileSquare {
 	
 	@ManyToOne
 	@JoinColumn(name = "idSquare", nullable = false, insertable = false, updatable = false)
-	private Square square;
-	
+	private Square square;	
 	
 
 	public TileSquare(TileSquareId tileSquare, TileDetails tileDetails, Square square) {
@@ -53,6 +52,11 @@ public class TileSquare {
 
 	public void setSquare(Square square) {
 		this.square = square;
+	}
+
+	@Override
+	public String toString() {
+		return "TileSquare [tile=" + tileDetails.getName() + ", " + ", square=" + square + "]";
 	}
 	
 	

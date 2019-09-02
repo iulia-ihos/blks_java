@@ -19,7 +19,7 @@ import cs.blokus.enums.TileColorEnum;
 @Entity
 @Table(name = "tile")
 public class Tile {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idTile;
@@ -88,8 +88,11 @@ public class Tile {
 	public void setMoves(List<Move> moves) {
 		this.moves = moves;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Tile [idTile=" + idTile + ", color=" + color + ", tileDetails=" + tileDetails + "]";
+	}
+	
 
 }

@@ -12,6 +12,8 @@ public class TileSquareDTO implements Serializable{
 		this.tileDetails = tileDetails;
 		this.square = square;
 	}
+	
+	public TileSquareDTO() {}
 
 	public TileDetailsDTO getTileDetails() {
 		return tileDetails;
@@ -28,6 +30,12 @@ public class TileSquareDTO implements Serializable{
 	public void setSquare(SquareDTO square) {
 		this.square = square;
 	}
+
+	@Override
+	public String toString() {
+		return "TileSquareDTO [tile=" + tileDetails.getName() + ", square=" + square + "]";
+	}
+	
 	
 	
 }

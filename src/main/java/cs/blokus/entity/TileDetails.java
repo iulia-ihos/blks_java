@@ -70,4 +70,11 @@ public class TileDetails {
 		this.tileSquares = tileSquares;
 	}
 
+
+	@Override
+	public String toString() {
+		return "TileDetails [name=" + name + ", numberSquares=" + numberSquares + ", tileSquares=" + tileSquares + "]";
+	}
+
+	
 }
