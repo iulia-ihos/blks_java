@@ -34,8 +34,8 @@ public class UserServiceImpl implements IUserService{
 		return convertToDto(userDAO.save(usr));
 	}
 
-	public UserDTO findByEmail(String email) {
-		return convertToDto(userDAO.findByEmail(email));
+	public UserDTO findByUsername(String username) {
+		return convertToDto(userDAO.findByUsername(username));
 	}
 	
 	
@@ -50,5 +50,12 @@ public class UserServiceImpl implements IUserService{
 	    User user = modelMapper.map(userDto, User.class);
 	  //  user.setRol(modelMapper.map(userDto.getRol(), Role.class));
 	    return user;
+	}
+
+	@Override
+	public boolean checkUsername(String username) {
+		if(userDAO.findByUsername(username) == null)
+			return false;
+		return true;
 	}
 }

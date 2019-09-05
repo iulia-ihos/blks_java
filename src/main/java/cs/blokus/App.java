@@ -1,22 +1,9 @@
 package cs.blokus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import cs.blokus.dto.TileDTO;
-import cs.blokus.entity.Square;
-import cs.blokus.entity.Tile;
-import cs.blokus.entity.TileDetails;
-import cs.blokus.entity.TileSquare;
-import cs.blokus.enums.TileColorEnum;
-import cs.blokus.enums.TileNameEnum;
-import cs.blokus.service.impl.ModelMapping;
 
 @SpringBootApplication
 public class App 

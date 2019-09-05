@@ -5,13 +5,15 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class MoveDTO implements Serializable {
 
+	private TileDTO tile;
 	private GameDTO game;
 	private BoardPositionDTO position;
 	
 	
-	public MoveDTO(GameDTO game, BoardPositionDTO position) {
+	public MoveDTO(GameDTO game, TileDTO tile, BoardPositionDTO position) {
 		this.game = game;
 		this.position = position;
+		this.tile = tile;
 	}
 
 	public GameDTO getGame() {
@@ -29,6 +31,15 @@ public class MoveDTO implements Serializable {
 	public void setPosition(BoardPositionDTO position) {
 		this.position = position;
 	}
+
+	public TileDTO getTile() {
+		return tile;
+	}
+
+	public void setTile(TileDTO tile) {
+		this.tile = tile;
+	}
+	
 	
 	
 }

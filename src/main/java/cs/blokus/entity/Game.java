@@ -3,8 +3,11 @@ package cs.blokus.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import cs.blokus.enums.GameStatusEnum;
 
 @Entity
 @Table(name = "game")
@@ -26,19 +31,24 @@ public class Game {
 	
 	@Column(name = "endTime")
 	private Date endTime;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private GameStatusEnum status;
 
 	@OneToOne
 	@JoinColumn(name = "winner")
 	private User winner;
 	
-	@OneToMany(mappedBy = "game")
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	List<Player> players;
 	
 	@OneToMany(mappedBy = "game")
 	List<Move> moves;
 
 
-	public Game(Long idGame, Date startTime, Date endTime, User winner) {
+	public Game(Long idGame, Date startTime, Date endTime, User winner, GameStatusEnum status) {
+		this.status = status;
 		this.idGame = idGame;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -94,6 +104,22 @@ public class Game {
 	public void setMoves(List<Move> moves) {
 		this.moves = moves;
 	}
+
+	public GameStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(GameStatusEnum status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Game [idGame=" + idGame + ", startTime=" + startTime + ", endTime=" + endTime + ", status=" + status
+				+ ", winner=" + winner + ", players=" + players + ", moves=" + moves + "]";
+	}
+	
+	
 	
 	
 }

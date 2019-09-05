@@ -2,6 +2,7 @@ package cs.blokus.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Square {
 	@Column(name = "leftmost")
 	private int left;
 	
-	@OneToMany(mappedBy = "square")
+	@OneToMany(mappedBy = "square", cascade = CascadeType.ALL)
 	private List<TileSquare> tileSquares;
 
 	

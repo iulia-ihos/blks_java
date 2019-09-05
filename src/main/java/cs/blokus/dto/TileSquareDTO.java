@@ -33,7 +33,7 @@ public class TileSquareDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "TileSquareDTO [tile=" + tileDetails.getName() + ", square=" + square + "]";
+		return "TileSquareDTO [  square=" + square + "]";
 	}
 	
 	

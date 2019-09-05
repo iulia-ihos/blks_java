@@ -9,5 +9,6 @@ import cs.blokus.exceptions.DataDuplicateException;
 public interface IUserService {
 	
 	public UserDTO create(UserDTO user) throws DataDuplicateException;
-	public UserDTO findByEmail(String email);
+	public UserDTO findByUsername(String username);
+	public boolean checkUsername(String username);
 }

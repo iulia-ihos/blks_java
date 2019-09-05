@@ -2,37 +2,37 @@ package cs.blokus.dto;
 
 import java.io.Serializable;
 
+import cs.blokus.entity.PlayerId;
 import cs.blokus.enums.TileColorEnum;
 
 @SuppressWarnings("serial")
 public class PlayerDTO implements Serializable{
 
-	private UserDTO user;
-	private GameDTO game;
+	private PlayerId player;
 	private TileColorEnum color;
 	private int points;
 	
 	
 	
-	public PlayerDTO(UserDTO user, GameDTO game, TileColorEnum color, int points) {
-		this.user = user;
-		this.game = game;
+	public PlayerDTO(PlayerId id, TileColorEnum color, int points) {
+		this.player = id;
 		this.color = color;
 		this.points = points;
 	}
 	
-	public UserDTO getUser() {
-		return user;
+
+	
+	
+	
+	public PlayerId getPlayer() {
+		return player;
 	}
-	public void setUser(UserDTO user) {
-		this.user = user;
+
+
+	public void setPlayer(PlayerId player) {
+		this.player = player;
 	}
-	public GameDTO getGame() {
-		return game;
-	}
-	public void setGame(GameDTO game) {
-		this.game = game;
-	}
+
 	public TileColorEnum getColor() {
 		return color;
 	}

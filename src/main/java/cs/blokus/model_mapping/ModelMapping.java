@@ -1,4 +1,4 @@
-package cs.blokus.service.impl;
+package cs.blokus.model_mapping;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

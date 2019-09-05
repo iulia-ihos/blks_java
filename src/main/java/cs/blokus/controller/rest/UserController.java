@@ -83,14 +83,10 @@ public class UserController {
 		}
 	    
 
-		@GetMapping("getByEmail/{email}")
-		public ResponseEntity<UserDTO> getByEmail(@PathVariable String email) {
-		        try {
-		            return ResponseEntity.ok(userService.findByEmail(email));
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		            return ResponseEntity.ok(null);
-		        }
+		@GetMapping("checkUsername/{username}")
+		public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
+		            return ResponseEntity.ok(userService.checkUsername(username));
+		     
 		    }
 		
 	

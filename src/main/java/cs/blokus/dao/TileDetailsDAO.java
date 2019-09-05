@@ -10,5 +10,5 @@ import cs.blokus.enums.TileNameEnum;
 @Transactional
 @Repository
 public interface TileDetailsDAO extends JpaRepository<TileDetails, TileNameEnum> {
-
+	
 }

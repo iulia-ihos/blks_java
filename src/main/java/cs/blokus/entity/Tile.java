@@ -2,6 +2,7 @@ package cs.blokus.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,14 +34,13 @@ public class Tile {
 	private TileDetails tileDetails;
 	
 	
-	@OneToMany(mappedBy = "tile")
+	@OneToMany(mappedBy = "tile", cascade = CascadeType.ALL)
 	private List<Move> moves;
 	
 	
 
 
-	public Tile(Long idTile, TileColorEnum color, TileDetails tileDetails) {
-		this.idTile = idTile;
+	public Tile(TileColorEnum color, TileDetails tileDetails) {
 		this.color = color;
 		this.tileDetails = tileDetails;
 	}

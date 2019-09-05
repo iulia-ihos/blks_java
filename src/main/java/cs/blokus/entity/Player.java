@@ -35,10 +35,8 @@ public class Player {
 	private int points;
 
 
-	public Player(PlayerId player, User user, Game game, TileColorEnum color, int points) {
+	public Player(PlayerId player, TileColorEnum color, int points) {
 		this.player = player;
-		this.user = user;
-		this.game = game;
 		this.color = color;
 		this.points = points;
 	}

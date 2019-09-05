@@ -3,26 +3,35 @@ package cs.blokus.entity;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import cs.blokus.enums.TileNameEnum;
 
 @SuppressWarnings("serial")
 @Embeddable
 public class TileSquareId implements Serializable {
 
-	private String tileName;
+	@Enumerated(EnumType.STRING)
+	private TileNameEnum tileName;
 	private String idSquare;
 	
 	
 
-	public TileSquareId(String tileName, String idSquare) {
+	public TileSquareId(TileNameEnum tileName, String idSquare) {
 		this.tileName = tileName;
 		this.idSquare = idSquare;
 	}
+	
+	public TileSquareId() {
 
-	public String getTileName() {
+	}
+
+	public TileNameEnum getTileName() {
 		return tileName;
 	}
 
-	public void setTileName(String tileName) {
+	public void setTileName(TileNameEnum tileName) {
 		this.tileName = tileName;
 	}
 

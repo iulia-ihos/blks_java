@@ -1,0 +1,5 @@
+<dataset>
+    <User id_user ="1" username="user1" password = "passs" email=" email1" role="PLAYER"/>
+    <User id_user ="2" username="user2" password = "passs" email=" email2" role="PLAYER"/>
+    <Game id_game = "1" />
+</dataset>

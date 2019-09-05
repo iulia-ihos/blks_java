@@ -2,6 +2,9 @@ package cs.blokus.entity;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,6 +17,7 @@ public class TileSquare {
 	private TileSquareId tileSquare;
 	
 	@ManyToOne
+	@Enumerated(EnumType.STRING)
 	@JoinColumn(name = "tileName", nullable = false, insertable = false, updatable = false)
 	private TileDetails tileDetails;
 	
@@ -22,10 +26,8 @@ public class TileSquare {
 	private Square square;	
 	
 
-	public TileSquare(TileSquareId tileSquare, TileDetails tileDetails, Square square) {
+	public TileSquare(TileSquareId tileSquare) {
 		this.tileSquare = tileSquare;
-		this.tileDetails = tileDetails;
-		this.square = square;
 	}
 	
 	public TileSquare() {}
@@ -56,7 +58,7 @@ public class TileSquare {
 
 	@Override
 	public String toString() {
-		return "TileSquare [tile=" + tileDetails.getName() + ", " + ", square=" + square + "]";
+		return "TileSquare [  " + ", square=" + square + "]";
 	}
 	
 	
