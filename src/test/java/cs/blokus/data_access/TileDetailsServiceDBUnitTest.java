@@ -1,6 +1,6 @@
 package cs.blokus.data_access;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -48,6 +48,14 @@ public class TileDetailsServiceDBUnitTest {
 			assert(squares.size()!=0);
 			
 			assertNotNull(squares.get(0).getSquare());
+			
+//			List<TileSquare> foundSquares = tileSquareService.getForTile(det);
+//			
+//			for(int i = 0; i<= foundSquares.size(); i++) {
+//				assertEquals(foundSquares.get(i), squares.get(i));
+//			}
+			
+			
 		}
 	
 	}

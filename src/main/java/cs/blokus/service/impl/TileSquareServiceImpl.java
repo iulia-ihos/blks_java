@@ -1,11 +1,12 @@
 package cs.blokus.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cs.blokus.dao.SquareDAO;
+import cs.blokus.dao.TileDetailsDAO;
 import cs.blokus.dao.TileSquareDAO;
 import cs.blokus.entity.TileDetails;
 import cs.blokus.entity.TileSquare;
@@ -26,7 +27,7 @@ public class TileSquareServiceImpl implements ITileSquareService{
 	private TileSquareDAO tileSquareDAO;
 	
 	@Autowired
-	private SquareDAO squareDAO;
+	private TileDetailsDAO tileDetailsDAO;
 	
 	@Autowired
 	private ISquareService squareService;
@@ -56,23 +57,25 @@ public class TileSquareServiceImpl implements ITileSquareService{
 		for(TileNameEnum name: names) {
 			switch(name) {
 			case I : 
-				;
 				save(new TileSquareId(TileNameEnum.I,"top0Left0"));
 				break;
+				
 			case I2 : 
 				save(new TileSquareId(TileNameEnum.I2,"top0Left0"));
 				save(new TileSquareId(TileNameEnum.I2,"top0Left1"));
 				break;
+//3
 			case I3 : 
 				save(new TileSquareId(TileNameEnum.I3,"top0Left0"));
 				save(new TileSquareId(TileNameEnum.I3,"top0Left1"));
 				save(new TileSquareId(TileNameEnum.I3,"top0Left2"));
-				break;
+				break;			
 			case V3 : 
 				save(new TileSquareId(TileNameEnum.V3,"top0Left0"));
 				save(new TileSquareId(TileNameEnum.V3,"top0Left1"));
 				save(new TileSquareId(TileNameEnum.V3,"top1Left1"));
 				break;
+//4		
 			case I4 : 
 				save(new TileSquareId(TileNameEnum.I4,"top0Left0"));
 				save(new TileSquareId(TileNameEnum.I4,"top0Left1"));
@@ -103,6 +106,7 @@ public class TileSquareServiceImpl implements ITileSquareService{
 				save(new TileSquareId(TileNameEnum.Z4,"top1Left1"));
 				save(new TileSquareId(TileNameEnum.Z4,"top2Left1"));
 				break;
+//5				
 			case I5 : 
 				save(new TileSquareId(TileNameEnum.I5,"top0Left0"));
 				save(new TileSquareId(TileNameEnum.I5,"top0Left1"));
@@ -122,7 +126,7 @@ public class TileSquareServiceImpl implements ITileSquareService{
 				save(new TileSquareId(TileNameEnum.Y,"top0Left1"));
 				save(new TileSquareId(TileNameEnum.Y,"top0Left2"));
 				save(new TileSquareId(TileNameEnum.Y,"top0Left3"));
-				save(new TileSquareId(TileNameEnum.Y,"top0Left1"));
+				save(new TileSquareId(TileNameEnum.Y,"top1Left1"));
 				break;
 			case Z5 : 
 				save(new TileSquareId(TileNameEnum.Z5,"top0Left0"));
@@ -193,9 +197,9 @@ public class TileSquareServiceImpl implements ITileSquareService{
 	}
 
 	@Override
-	public List<TileSquare> getForTile(TileDetails tileDetails){
-		//return tileSquareDAO.getForTile(tileName);
-		return tileSquareDAO.findByTileDetails(tileDetails);
+	public List<TileSquare> getForTile(TileNameEnum tileName){
+		List<TileSquare> squares = tileSquareDAO.getForTile(tileName);
+		return squares;
 	}
 
 }

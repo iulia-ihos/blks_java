@@ -1,64 +1,38 @@
 package cs.blokus.entity;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import cs.blokus.enums.TileColorEnum;
 
 @Entity
 @Table(name = "player")
-
 public class Player {
-	
-	@EmbeddedId
-	private PlayerId player;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idPlayer;
+		
 	@ManyToOne
-	@JoinColumn(name = "idUser", nullable = false, insertable = false, updatable = false)
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "idGame", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "idGame", nullable = false)
 	private Game game;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "color")
-	private TileColorEnum color;
-	
-	@Column(name = "points")
-	private int points;
+
+	@OneToOne
+	@JoinColumn(name = "idPlayerDetails")
+	private PlayerDetails playerDetails;
 
 
-	public Player(PlayerId player, TileColorEnum color, int points) {
-		this.player = player;
-		this.color = color;
-		this.points = points;
+	public Player(Game game, PlayerDetails playerDetails) {
+		this.game = game;
+		this.playerDetails = playerDetails;	
 	}
 	
 	public Player() {
 
-	}
-
-	public PlayerId getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(PlayerId player) {
-		this.player = player;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Game getGame() {
@@ -69,21 +43,25 @@ public class Player {
 		this.game = game;
 	}
 
-	public TileColorEnum getColor() {
-		return color;
+
+	public Long getIdPlayer() {
+		return idPlayer;
 	}
 
-	public void setColor(TileColorEnum color) {
-		this.color = color;
+	public void setIdPlayer(Long idPlayer) {
+		this.idPlayer = idPlayer;
 	}
 
-	public int getPoints() {
-		return points;
+	public PlayerDetails getPlayerDetails() {
+		return playerDetails;
 	}
 
-	public void setPoints(int points) {
-		this.points = points;
+	public void setPlayerDetails(PlayerDetails playerDetails) {
+		this.playerDetails = playerDetails;
 	}
+
+	
+	
 	
 	
 }

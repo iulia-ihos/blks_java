@@ -15,6 +15,9 @@ public class MoveDTO implements Serializable {
 		this.position = position;
 		this.tile = tile;
 	}
+	
+	public MoveDTO() {
+	}
 
 	public GameDTO getGame() {
 		return game;

@@ -1,0 +1,50 @@
+package cs.blokus.messages;
+
+import cs.blokus.dto.MoveDTO;
+import cs.blokus.dto.PlayerDetailsDTO;
+
+public class MoveMessage {
+
+	private MoveDTO move;
+	private PlayerDetailsDTO nextPlayer;
+	private PlayerDetailsDTO currentPlayer;
+	
+	
+	
+	public MoveMessage(MoveDTO move, PlayerDetailsDTO currentPlayer, PlayerDetailsDTO nextPlayer) {
+		this.move = move;
+		this.nextPlayer = nextPlayer;
+		this.currentPlayer =  currentPlayer;
+	}
+	
+
+	public MoveMessage() {
+	}
+	
+	public MoveDTO getMove() {
+		return move;
+	}
+	public void setMove(MoveDTO move) {
+		this.move = move;
+	}
+	public PlayerDetailsDTO getNextPlayer() {
+		return nextPlayer;
+	}
+	public void setNextPlayer(PlayerDetailsDTO nextPlayer) {
+		this.nextPlayer = nextPlayer;
+	}
+
+
+	public PlayerDetailsDTO getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+
+	public void setCurrentPlayer(PlayerDetailsDTO currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+	
+	
+	
+	
+}

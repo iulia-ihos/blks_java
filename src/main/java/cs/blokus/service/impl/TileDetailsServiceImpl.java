@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import cs.blokus.dao.TileDetailsDAO;
 import cs.blokus.entity.TileDetails;
 import cs.blokus.enums.TileNameEnum;
-import cs.blokus.service.ISquareService;
 import cs.blokus.service.ITileDetailsService;
 
 @Component

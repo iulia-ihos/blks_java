@@ -21,6 +21,9 @@ public class BoardPositionDTO implements Serializable{
 		this.isFlippedHorizontally = isFlippedHorizontally;
 		this.isFlippedVertically = isFlippedVertically;
 	}
+	
+	public BoardPositionDTO() {
+	}
 
 	public Long getIdBoardPosition() {
 		return idBoardPosition;

@@ -5,23 +5,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TileSquareDTO implements Serializable{
 	
-	private TileDetailsDTO tileDetails;
 	private SquareDTO square;
 
-	public TileSquareDTO(TileDetailsDTO tileDetails, SquareDTO square) {
-		this.tileDetails = tileDetails;
+	public TileSquareDTO(SquareDTO square) {
 		this.square = square;
 	}
 	
 	public TileSquareDTO() {}
 
-	public TileDetailsDTO getTileDetails() {
-		return tileDetails;
-	}
-
-	public void setTileDetails(TileDetailsDTO tileDetails) {
-		this.tileDetails = tileDetails;
-	}
 
 	public SquareDTO getSquare() {
 		return square;
@@ -33,7 +24,7 @@ public class TileSquareDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "TileSquareDTO [  square=" + square + "]";
+		return "TileSquareDTO [ square=" + square + "]";
 	}
 	
 	

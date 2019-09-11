@@ -3,8 +3,6 @@ package cs.blokus.data_access;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Optional;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,13 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
+import cs.blokus.dao.GameDAO;
 import cs.blokus.dao.PlayerDAO;
+import cs.blokus.dao.PlayerDetailsDAO;
+import cs.blokus.entity.Game;
 import cs.blokus.entity.Player;
-import cs.blokus.entity.PlayerId;
+import cs.blokus.entity.PlayerDetails;
+import cs.blokus.entity.User;
 import cs.blokus.enums.TileColorEnum;
 
 @RunWith(SpringRunner.class)
@@ -31,16 +33,24 @@ public class PlayerRepositoryDBUnitTest {
 
     @Autowired
     private PlayerDAO playerDAO;
+    
+    @Autowired
+    private GameDAO gameDAO;
+    
+    @Autowired
+    private PlayerDetailsDAO playersDetailsDAO;
 	
 	@DatabaseSetup(value = "/datasets/data.xml")
 	@Test
 	public void givenPlayer_whenSaveAndRetreiveEntity_thenOK() {
-	    PlayerId playerId  = new PlayerId(1L, 1L);
-	    Player player = playerDAO.save(new Player(playerId, TileColorEnum.blue, 0));
-	    Optional<Player> foundEntity = playerDAO.findById(player.getPlayer());
-	    foundEntity.get();
-	    //assertThat(player);
+		Game game = gameDAO.findById(1L).get();
+		User user =  new User();
+		user.setUsername("user1");
+		PlayerDetails details = playersDetailsDAO.save(new PlayerDetails(0L, user, TileColorEnum.red, 0));
+	    Player player = playerDAO.save(new Player(game, details));
+	    Player foundEntity = playerDAO.findById(player.getIdPlayer()).get();
+	   
 	    assertNotNull(foundEntity);
-	    assertEquals( foundEntity.get().getPlayer(), player.getPlayer());
+	    assertEquals( foundEntity.getGame(), player.getGame());
 	}
 }

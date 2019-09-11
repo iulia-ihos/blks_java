@@ -17,53 +17,42 @@ import cs.blokus.model_mapping.ModelMapping;
 import cs.blokus.service.ITileService;
 import cs.blokus.service.ITileSquareService;
 
-
 @Component
-public class TileServiceImpl implements ITileService{
-	
+public class TileServiceImpl implements ITileService {
+
 	@Autowired
 	private TileDAO tileDAO;
-	
+
 	@Autowired
 	private ModelMapping modelMapper;
-	
+
 	@Autowired
 	private ITileSquareService tileSquareService;
 
 	@Override
 	public List<TileDTO> getAll() {
 		tileSquareService.createAll();
-		if(tileDAO.count() != 84) {
+		if (tileDAO.count() != 84) {
 			tileDAO.deleteAll();
 			addAll();
 		}
 		List<TileDTO> dtos = new ArrayList<>();
 		List<Tile> tiles = tileDAO.findAll();
-		System.out.println(tiles);
-		for(Tile tile: tiles) {
-//			TileDetails tileDet = tile.getTileDetails();
-//			//System.out.println(tileDet.getTileSquares());
-//			List<TileSquare> squares = tileSquareService.getForTile(tileDet);
-//			System.out.println(squares);
-//
-//			for(TileSquare square: squares) {
-//				System.out.println(square.getSquare());
-//			}
-//			
-//			tileDet.setTileSquares(squares);
-//			tile.setTileDetails(tileDet);
-			TileDTO dto = (TileDTO)modelMapper.map(tile, TileDTO.class);
-			
+		for (Tile tile : tiles) {
+			TileDetails tileDet = tile.getTileDetails();
+			List<TileSquare> squares = tileSquareService.getForTile(tile.getTileDetails().getName());
+			tileDet.setTileSquares(squares);
+			tile.setTileDetails(tileDet);
+			TileDTO dto = (TileDTO) modelMapper.map(tile, TileDTO.class);
+
 			dtos.add(dto);
 		}
-		System.out.println(dtos);
 		return dtos;
 	}
 
-	
 	private void addAll() {
 		TileNameEnum[] names = TileNameEnum.values();
-		for(TileNameEnum name: names) {
+		for (TileNameEnum name : names) {
 			TileDetails tileDetails = new TileDetails(name);
 			tileDAO.save(new Tile(TileColorEnum.red, tileDetails));
 			tileDAO.save(new Tile(TileColorEnum.blue, tileDetails));

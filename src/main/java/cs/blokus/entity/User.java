@@ -41,7 +41,7 @@ public class User {
 	private Performance performance; 
 	
 	@OneToMany(mappedBy = "user")
-	private List<Player> playerList;
+	private List<PlayerDetails> playerDetails;
 	
 	@OneToMany(mappedBy = "winner")
 	private List<Game> gamesWon;
@@ -53,6 +53,10 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.role = role;
+	}
+	
+	public User(Long idUser) {
+		this.idUser = idUser;
 	}
 	
 	public User() {}
@@ -105,13 +109,6 @@ public class User {
 		this.performance = performance;
 	}
 
-	public List<Player> getPlayerList() {
-		return playerList;
-	}
-
-	public void setPlayerList(List<Player> playerList) {
-		this.playerList = playerList;
-	}
 
 	public List<Game> getGamesWon() {
 		return gamesWon;
@@ -120,6 +117,22 @@ public class User {
 	public void setGamesWon(List<Game> gamesWon) {
 		this.gamesWon = gamesWon;
 	}
+
+	public List<PlayerDetails> getColors() {
+		return playerDetails;
+	}
+
+	public void setColors(List<PlayerDetails> playerDetails) {
+		this.playerDetails = playerDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "User [idUser=" + idUser + ", email=" + email + ", username=" + username + ", password=" + password
+				+ ", role=" + role + "]";
+	}
+	
+	
 	
 	
 }

@@ -8,26 +8,18 @@ import cs.blokus.dto.TileDTO;
 public class StartGameMessage {
 
 	private List<PlayerDTO> players;
-	private List<TileDTO> tiles;
 	
-	
-	
-	public StartGameMessage(List<PlayerDTO> players, List<TileDTO> tiles) {
+	public StartGameMessage(List<PlayerDTO> players) {
 		this.players = players;
-		this.tiles = tiles;
 	}
-
-
 
 	public StartGameMessage(){
 		
 	}
-
 	
 	public List<PlayerDTO> getPlayers() {
 		return players;
 	}
-
 
 
 	public void setPlayers(List<PlayerDTO> players) {
@@ -35,16 +27,6 @@ public class StartGameMessage {
 	}
 
 
-
-	public List<TileDTO> getTiles() {
-		return tiles;
-	}
-
-
-
-	public void setTiles(List<TileDTO> tiles) {
-		this.tiles = tiles;
-	}
 	
 	
 }
