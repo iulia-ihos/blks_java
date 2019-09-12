@@ -26,9 +26,11 @@ public class TileDetails {
 	@Column(name = "numberSquares")
 	private int numberSquares;
 
-
 	@OneToMany(mappedBy = "tileDetails", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<TileSquare> tileSquares;
+	
+	@OneToMany(mappedBy = "tileDetails", cascade = CascadeType.ALL)
+	private List<TileVariations> tileVariations;
 	
 	@OneToMany(mappedBy = "tileDetails", cascade = CascadeType.ALL)
 	private List<Tile> tiles;

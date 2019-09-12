@@ -13,6 +13,7 @@ import cs.blokus.entity.PlayerDetails;
 import cs.blokus.entity.User;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.model_mapping.ModelMapping;
+import cs.blokus.service.IBoardService;
 import cs.blokus.service.IPlayerDetailsService;
 
 @Component
@@ -27,6 +28,9 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+	 @Autowired 
+	 private IBoardService boardService;
 	
 	
 	@Override
@@ -67,29 +71,74 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 
 	@Override
 	public PlayerDetailsDTO getNextPlayer(TileColorEnum currentColor, Long idGame) {
-		TileColorEnum nextColor = TileColorEnum.red;
-		switch(currentColor) {
-			case red: 
-				nextColor = TileColorEnum.green;
-				break;
-			case green: 
-				nextColor = TileColorEnum.yellow;
-				break;
-			case yellow: 
-				nextColor = TileColorEnum.blue;
-				break;
-			case blue: 
-				nextColor = TileColorEnum.red;
-				break;
-			
-		}
+		TileColorEnum nextColor = null;
+		TileColorEnum[] checkColors = new TileColorEnum[4];
+//		switch(currentColor) {
+//			case red: 
+//				checkColors[0] = TileColorEnum.green;
+//				checkColors[1] = TileColorEnum.green;
+//				checkColors[2] = TileColorEnum.green;
+//				checkColors[3] = TileColorEnum.green;
+//				nextColor = checkTheNextColors(checkColors, idGame);		
+//				break;
+//			case green: 
+//				if(boardService.hasMove(TileColorEnum.yellow, idGame))
+//					nextColor = TileColorEnum.yellow;
+//				break;
+//			case yellow: 
+//				if(boardService.hasMove(TileColorEnum.blue, idGame))
+//					nextColor = TileColorEnum.blue;
+//				break;
+//			case blue: 
+//				if(boardService.hasMove(TileColorEnum.red, idGame))
+//					nextColor = TileColorEnum.red;
+//				break;
+//			
+//		}
+		nextColor = checkTheRestOfColors(currentColor, idGame);
+		
+		if(nextColor == null) 
+			return null;
 		PlayerDetails details = playerDetailsDAO.getPlayer(nextColor, idGame);
 		PlayerDetailsDTO dto =  modelMapper.map(details, PlayerDetailsDTO.class);
 		dto.setUsername(details.getUser().getUsername());
 		return dto;
 	}
 
-
+    private TileColorEnum checkTheNextColors(TileColorEnum[] checkColor, Long idGame) {
+    	for(TileColorEnum color: checkColor) {
+    		if(boardService.hasMove(color, idGame))
+    			return color;
+    	}
+    return null;
+    }
+    
+    private TileColorEnum checkTheRestOfColors(TileColorEnum checkColor, Long idGame) {
+    	TileColorEnum[] colors = TileColorEnum.values();
+    	boolean check = false;
+    	//check next after color
+    	for(TileColorEnum color: colors) {
+    		if(check) {
+    			if(boardService.hasMove(color, idGame))
+        			return color;
+    		} else {
+    			if(color.equals(checkColor)) {
+        			check = true;
+        		}
+    		}	
+    	}
+    	//check up to color
+    	for(TileColorEnum color: colors) {
+    		if(check) {
+    			if(boardService.hasMove(color, idGame))
+        			return color;
+    			if(color.equals(checkColor)) {
+        			check = false;
+        		}
+    		}
+    	}
+    return null;
+    }
 
 
 	@Override

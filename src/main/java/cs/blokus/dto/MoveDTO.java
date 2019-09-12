@@ -7,10 +7,10 @@ public class MoveDTO implements Serializable {
 
 	private TileDTO tile;
 	private GameDTO game;
-	private BoardPositionDTO position;
+	private TilePositionDTO position;
 	
 	
-	public MoveDTO(GameDTO game, TileDTO tile, BoardPositionDTO position) {
+	public MoveDTO(GameDTO game, TileDTO tile, TilePositionDTO position) {
 		this.game = game;
 		this.position = position;
 		this.tile = tile;
@@ -27,11 +27,11 @@ public class MoveDTO implements Serializable {
 		this.game = game;
 	}
 	
-	public BoardPositionDTO getPosition() {
+	public TilePositionDTO getPosition() {
 		return position;
 	}
 	
-	public void setPosition(BoardPositionDTO position) {
+	public void setPosition(TilePositionDTO position) {
 		this.position = position;
 	}
 

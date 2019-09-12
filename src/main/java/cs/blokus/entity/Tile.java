@@ -37,6 +37,9 @@ public class Tile {
 	@OneToMany(mappedBy = "tile", cascade = CascadeType.ALL)
 	private List<Move> moves;
 	
+	@OneToMany(mappedBy = "tile", cascade = CascadeType.ALL)
+	private List<TileGame> games;
+	
 	
 
 

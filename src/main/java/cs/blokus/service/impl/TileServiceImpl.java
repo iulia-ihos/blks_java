@@ -14,8 +14,10 @@ import cs.blokus.entity.TileSquare;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.enums.TileNameEnum;
 import cs.blokus.model_mapping.ModelMapping;
+import cs.blokus.service.ITileDetailsService;
 import cs.blokus.service.ITileService;
 import cs.blokus.service.ITileSquareService;
+import cs.blokus.service.ITileVariationsService;
 
 @Component
 public class TileServiceImpl implements ITileService {
@@ -28,9 +30,27 @@ public class TileServiceImpl implements ITileService {
 
 	@Autowired
 	private ITileSquareService tileSquareService;
+	
+	@Autowired
+	private ITileDetailsService tileDetailsService;
+	
+	@Autowired
+	private ITileVariationsService tileVariationsService;
+	
+	@Override
+	public List<TileDTO> getAvailableForGame(Long idGame) {
+		List<Tile> tiles = tileDAO.getAvailableTiles(idGame);
+		List<TileDTO> dtos = new ArrayList<>();
+		for(Tile tile: tiles) {
+			dtos.add(modelMapper.map(tile, TileDTO.class));
+		}
+		return dtos;
+	}
 
 	@Override
 	public List<TileDTO> getAll() {
+		tileDetailsService.create();
+		tileVariationsService.saveAll();
 		tileSquareService.createAll();
 		if (tileDAO.count() != 84) {
 			tileDAO.deleteAll();

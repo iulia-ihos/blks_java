@@ -2,7 +2,6 @@ package cs.blokus.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import cs.blokus.enums.GameStatusEnum;
 
@@ -26,6 +25,11 @@ public class GameDTO implements Serializable {
 	
 	public GameDTO() {
 		
+	}
+
+	public GameDTO(Long idGame , GameStatusEnum status) {
+		this.idGame = idGame;
+		this.status = status;
 	}
 
 	public Long getIdGame() {

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import cs.blokus.entity.id.TileSquareId;
+
 @Entity
 @Table(name = "tileSquare")
 public class TileSquare {

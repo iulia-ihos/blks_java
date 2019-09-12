@@ -9,10 +9,13 @@ import org.springframework.stereotype.Component;
 
 import cs.blokus.dao.GameDAO;
 import cs.blokus.dto.GameDTO;
+import cs.blokus.entity.Board;
 import cs.blokus.entity.Game;
 import cs.blokus.enums.GameStatusEnum;
 import cs.blokus.model_mapping.ModelMapping;
+import cs.blokus.service.IBoardService;
 import cs.blokus.service.IGameService;
+import cs.blokus.service.ITileGameService;
 
 @Component
 public class GameServiceImpl implements IGameService {
@@ -22,11 +25,20 @@ public class GameServiceImpl implements IGameService {
 	
 	@Autowired
 	private ModelMapping modelMapper;
+	
+	@Autowired
+	private IBoardService boardService;
+	
+	@Autowired
+	private ITileGameService tileGameService;
 
 	@Override
 	public GameDTO create(GameDTO gameDTO) {
 		Game game = (Game) modelMapper.map(gameDTO, Game.class);
-		return modelMapper.map(gameDAO.save(game), GameDTO.class);
+		Board savedBoard = boardService.createBoard(game);
+		GameDTO dto = modelMapper.map(savedBoard.getGame(), GameDTO.class);
+		tileGameService.createTileForGame(dto.getIdGame());
+		return dto;
 	}
 
 	@Override

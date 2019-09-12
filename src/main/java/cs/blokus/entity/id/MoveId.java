@@ -1,4 +1,4 @@
-package cs.blokus.entity;
+package cs.blokus.entity.id;
 
 import java.io.Serializable;
 

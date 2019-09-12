@@ -1,5 +1,6 @@
 package cs.blokus.messages;
 
+import cs.blokus.dto.BoardPosition;
 import cs.blokus.dto.MoveDTO;
 import cs.blokus.dto.PlayerDetailsDTO;
 
@@ -8,7 +9,7 @@ public class MoveMessage {
 	private MoveDTO move;
 	private PlayerDetailsDTO nextPlayer;
 	private PlayerDetailsDTO currentPlayer;
-	
+	private BoardPosition boardPosition;
 	
 	
 	public MoveMessage(MoveDTO move, PlayerDetailsDTO currentPlayer, PlayerDetailsDTO nextPlayer) {
@@ -42,6 +43,16 @@ public class MoveMessage {
 
 	public void setCurrentPlayer(PlayerDetailsDTO currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+
+	public BoardPosition getBoardPosition() {
+		return boardPosition;
+	}
+
+
+	public void setBoardPosition(BoardPosition boardPosition) {
+		this.boardPosition = boardPosition;
 	}
 	
 	

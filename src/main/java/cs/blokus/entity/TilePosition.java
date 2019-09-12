@@ -9,11 +9,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "position")
-public class BoardPosition {
+public class TilePosition {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idBoardPosition;
+	private Long idTilePosition;
 	
 	@Column(name = "topmost")
 	private double top;
@@ -30,9 +30,9 @@ public class BoardPosition {
 	@Column(name = "flipY")
 	private boolean isFlippedVertically;
 
-	public BoardPosition(Long idBoardPosition, double top, double left, int angle, boolean isFlippedHorizontally,
+	public TilePosition(Long idTilePosition, double top, double left, int angle, boolean isFlippedHorizontally,
 			boolean isFlippedVertically) {
-		this.idBoardPosition = idBoardPosition;
+		this.idTilePosition = idTilePosition;
 		this.top = top;
 		this.left = left;
 		this.angle = angle;
@@ -40,15 +40,15 @@ public class BoardPosition {
 		this.isFlippedVertically = isFlippedVertically;
 	}
 
-	public BoardPosition() {
+	public TilePosition() {
 	}
 
 	public Long getIdBoardPosition() {
-		return idBoardPosition;
+		return idTilePosition;
 	}
 
 	public void setIdBoardPosition(Long idBoardPosition) {
-		this.idBoardPosition = idBoardPosition;
+		this.idTilePosition = idBoardPosition;
 	}
 
 	public double getTop() {

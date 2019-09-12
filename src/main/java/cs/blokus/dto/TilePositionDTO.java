@@ -3,18 +3,18 @@ package cs.blokus.dto;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class BoardPositionDTO implements Serializable{
+public class TilePositionDTO implements Serializable{
 	
-	private Long idBoardPosition;
+	private Long idTilePosition;
 	private double top;
 	private double left;
 	private int angle;
 	private boolean isFlippedHorizontally;
 	private boolean isFlippedVertically;
 	
-	public BoardPositionDTO(Long idBoardPosition, double top, double left, int angle, boolean isFlippedHorizontally,
+	public TilePositionDTO(Long idTilePosition, double top, double left, int angle, boolean isFlippedHorizontally,
 			boolean isFlippedVertically) {
-		this.idBoardPosition = idBoardPosition;
+		this.idTilePosition = idTilePosition;
 		this.top = top;
 		this.left = left;
 		this.angle = angle;
@@ -22,15 +22,15 @@ public class BoardPositionDTO implements Serializable{
 		this.isFlippedVertically = isFlippedVertically;
 	}
 	
-	public BoardPositionDTO() {
+	public TilePositionDTO() {
 	}
 
 	public Long getIdBoardPosition() {
-		return idBoardPosition;
+		return idTilePosition;
 	}
 
 	public void setIdBoardPosition(Long idBoardPosition) {
-		this.idBoardPosition = idBoardPosition;
+		this.idTilePosition = idBoardPosition;
 	}
 
 	public double getTop() {

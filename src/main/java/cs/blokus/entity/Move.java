@@ -7,6 +7,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import cs.blokus.entity.id.MoveId;
+
 @Entity
 @Table(name = "move")
 public class Move {
@@ -24,9 +26,9 @@ public class Move {
 	
 	@OneToOne
 	@JoinColumn(name = "idBoardPosition")
-	private BoardPosition position;
+	private TilePosition position;
 
-	public Move(Tile tile, Game game, BoardPosition position) {
+	public Move(Tile tile, Game game, TilePosition position) {
 		this.tile = tile;
 		this.game = game;
 		this.position = position;
@@ -58,11 +60,11 @@ public class Move {
 		this.game = game;
 	}
 
-	public BoardPosition getPosition() {
+	public TilePosition getPosition() {
 		return position;
 	}
 
-	public void setPosition(BoardPosition position) {
+	public void setPosition(TilePosition position) {
 		this.position = position;
 	} 
 	

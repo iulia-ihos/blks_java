@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cs.blokus.entity.TileSquare;
-import cs.blokus.entity.TileSquareId;
+import cs.blokus.entity.id.TileSquareId;
 import cs.blokus.enums.TileNameEnum;
 
 @Transactional

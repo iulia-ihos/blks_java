@@ -43,8 +43,17 @@ public class Game {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	List<Player> players;
 	
-	@OneToMany(mappedBy = "game")
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	List<Move> moves;
+	
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private List<TileGame> tiles;
+	
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private List<Corner> corners;
+	
+	@OneToOne(mappedBy = "game")
+	private Board board;
 
 
 	public Game(Long idGame, Date startTime, Date endTime, User winner, GameStatusEnum status) {
@@ -56,6 +65,10 @@ public class Game {
 	}
 	
 	public Game() {}
+
+	public Game(Long idGame) {
+		this.idGame = idGame;
+	}
 
 	public Long getIdGame() {
 		return idGame;
@@ -112,11 +125,20 @@ public class Game {
 	public void setStatus(GameStatusEnum status) {
 		this.status = status;
 	}
+	
+	
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
 
 	@Override
 	public String toString() {
-		return "Game [idGame=" + idGame + ", startTime=" + startTime + ", endTime=" + endTime + ", status=" + status
-				+ ", winner=" + winner + ", players=" + players + ", moves=" + moves + "]";
+		return "Game [idGame=" + idGame + ", startTime=" + startTime + ", endTime=" + endTime + 
+				", status=" + status;
 	}
 	
 	

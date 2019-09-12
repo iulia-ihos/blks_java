@@ -1,44 +1,31 @@
 package cs.blokus.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cs.blokus.dao.TileDetailsDAO;
 import cs.blokus.dao.TileSquareDAO;
-import cs.blokus.entity.TileDetails;
 import cs.blokus.entity.TileSquare;
-import cs.blokus.entity.TileSquareId;
+import cs.blokus.entity.id.TileSquareId;
 import cs.blokus.enums.TileNameEnum;
-import cs.blokus.model_mapping.ModelMapping;
 import cs.blokus.service.ISquareService;
-import cs.blokus.service.ITileDetailsService;
 import cs.blokus.service.ITileSquareService;
 
 @Component
 public class TileSquareServiceImpl implements ITileSquareService{
 
 	@Autowired
-	private ModelMapping modelMapper;
-	
-	@Autowired
 	private TileSquareDAO tileSquareDAO;
-	
-	@Autowired
-	private TileDetailsDAO tileDetailsDAO;
 	
 	@Autowired
 	private ISquareService squareService;
 	
-	@Autowired
-	private ITileDetailsService tileDetailsService;
+	
 
 	@Override
 	public void createAll() {
 		squareService.createSquares();
-		tileDetailsService.create();
 		if(tileSquareDAO.count() != 89) {
 			tileSquareDAO.deleteAll();
 			addAll();

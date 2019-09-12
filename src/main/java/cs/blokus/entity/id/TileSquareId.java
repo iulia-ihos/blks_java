@@ -1,4 +1,4 @@
-package cs.blokus.entity;
+package cs.blokus.entity.id;
 
 import java.io.Serializable;
 
@@ -48,7 +48,7 @@ public class TileSquareId implements Serializable {
 		if (obj == null)
 			return false;
 
-		if (!(obj instanceof MoveId))
+		if (!(obj instanceof TileSquareId))
 			return false;
 		if (obj == this)
 			return true;

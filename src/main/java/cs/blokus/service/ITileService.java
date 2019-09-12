@@ -8,4 +8,6 @@ public interface ITileService {
 	
 	List<TileDTO> getAll();
 
+	List<TileDTO> getAvailableForGame(Long idGame);
+
 }

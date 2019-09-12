@@ -35,14 +35,12 @@ public class TileServiceDBUnitTest {
 	public void createTiles() {
 		
 		List<TileDTO> tiles = tileService.getAll();
-		
-		
-	   
+	
 	    assertNotNull(tiles);
 	    assertEquals(84, tiles.size());
 	    
 	    for(TileDTO tile: tiles) {
-	    	assertEquals(tile.getTileDetails().getNumberSquares(), tile.getTileDetails().getNumberSquares());
+	    	assertEquals(tile.getTileDetails().getNumberSquares(), tile.getTileDetails().getTileSquares().size());
 	    }
 	}
 }

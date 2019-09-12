@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import cs.blokus.entity.Move;
-import cs.blokus.entity.id.MoveId;
+import cs.blokus.entity.Corner;
+import cs.blokus.enums.TileColorEnum;
 
 @Transactional
 @Repository
-public interface MoveDAO extends JpaRepository<Move, MoveId> {
+public interface CornerDAO extends JpaRepository<Corner, Long>{
+	
+	@Query("select corner from Corner corner where corner.color = ?1 and corner.game.idGame = ?2")
+	public List<Corner> getCornersForColor(TileColorEnum color, Long idGame);
 
-	@Query("select move from Move move where move.move.idGame = ?1")
-	List<Move> getForGame(Long igGame);
 }
