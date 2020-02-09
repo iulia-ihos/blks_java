@@ -2,6 +2,7 @@ package cs.blokus.entity;
 
 import java.util.Arrays;
 
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,10 +29,47 @@ public class TileVariations {
 	@Convert(converter = ArrayConverter.class)
 	private int[][] tile;
 	
-	public TileVariations(Long idTileVariation, TileDetails tileDetails, int[][] tile) {
+	@Column(name = "angle")
+	private int angle;
+	
+	@Column(name = "flipH")
+	private boolean flipH;
+	
+	@Column(name = "flipV")
+	private boolean flipV;
+	
+	public int getAngle() {
+		return angle;
+	}
+
+	public void setAngle(int angle) {
+		this.angle = angle;
+	}
+
+	public boolean isFlipH() {
+		return flipH;
+	}
+
+	public void setFlipH(boolean flipH) {
+		this.flipH = flipH;
+	}
+
+	public boolean isFlipV() {
+		return flipV;
+	}
+
+	public void setFlipV(boolean flipV) {
+		this.flipV = flipV;
+	}
+
+	public TileVariations(Long idTileVariation, TileDetails tileDetails, int[][] tile,
+			int angle, boolean flipH, boolean flipV) {
 		this.idTileVariation = idTileVariation;
 		this.tileDetails = tileDetails;
 		this.tile = tile;
+		this.angle = angle;
+		this.flipH = flipH;
+		this.flipV = flipV;
 	}
 	
 	public TileVariations() {

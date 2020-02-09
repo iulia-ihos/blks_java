@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.emitter.EmitterException;
 
 import cs.blokus.dao.CornerDAO;
 import cs.blokus.dto.Position;
 import cs.blokus.entity.Corner;
 import cs.blokus.entity.Game;
+import cs.blokus.enums.CornerType;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.service.ICornerService;
 
@@ -20,9 +20,10 @@ public class CornerServiceImpl implements ICornerService{
 	private CornerDAO cornerDAO;
 
 	@Override
-	public void create(Long idGame, TileColorEnum color, Position pos) {
+	public void create(Long idGame, TileColorEnum color, Position pos, CornerType type) {
 		Game game = new Game(idGame);
 		Corner corner = new Corner(0L, game, color, pos.getTop(), pos.getLeft());
+		corner.setType(type);
 		cornerDAO.save(corner);
 	}
 

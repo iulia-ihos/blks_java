@@ -2,8 +2,6 @@ package cs.blokus.dto;
 
 import java.io.Serializable;
 
-import cs.blokus.entity.Game;
-
 @SuppressWarnings("serial")
 public class PlayerDTO implements Serializable{
 

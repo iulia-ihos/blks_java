@@ -1,8 +1,6 @@
-package cs.blokus.data_access;
+package cs.blokus.service;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,31 +14,31 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import cs.blokus.dto.TileDTO;
-import cs.blokus.service.ITileService;
+import cs.blokus.dao.PlayerDetailsDAO;
+import cs.blokus.dto.PlayerDTO;
+import cs.blokus.dto.PlayerDetailsDTO;
+import cs.blokus.enums.TileColorEnum;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({ TransactionalTestExecutionListener.class, DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
-public class TileServiceDBUnitTest {
+public class PlayerDetailsServiceTest {
 
-
-    @Autowired
-    private ITileService tileService;
+	@Autowired
+    private IPlayerDetailsService playerDetailsService;	
 	
+	@Autowired
+    private PlayerDetailsDAO playerDetailsDAO;	
 	
 	@Test
-	@DatabaseSetup(value = "/tiles.xml")
-	public void createTiles() {
-		
-		List<TileDTO> tiles = tileService.getAll();
-	
-	    assertNotNull(tiles);
-	    assertEquals(84, tiles.size());
-	    
-	    for(TileDTO tile: tiles) {
-	    	assertEquals(tile.getTileDetails().getNumberSquares(), tile.getTileDetails().getTileSquares().size());
-	    }
+	@DatabaseSetup(value = "/player.xml")
+	public void testCreateThenUpdateScore() {
+		PlayerDetailsDTO playerDetailsDTO = playerDetailsService.create( new PlayerDetailsDTO(1L, "user", TileColorEnum.red, 0));
+		assertEquals(0, playerDetailsDTO.getPoints());
+		playerDetailsService.updateScore(playerDetailsDTO.getIdPlayerDetails(), 5);
+		assertEquals(5, playerDetailsDAO.findById(playerDetailsDTO.getIdPlayerDetails()).get().getPoints());
 	}
+
 }

@@ -29,27 +29,24 @@ public class TileVariationsServiceImpl implements ITileVariationsService{
 	public void saveAll() {
 		if(tileVariationsDAO.count() != 70) {
 			tileVariationsDAO.deleteAll();
-			addAll();
+			List<TileDetails> details = tileDetailsDAO.findAll();
+			for(TileDetails detail: details) {
+				addTileVariations(detail);
+			}
 		}
 		
 	}
 	
 	@Override
-	public List<TileVariations> getFotTile(TileNameEnum name) {
+	public List<TileVariations> getForTile(TileNameEnum name) {
 		return tileVariationsDAO.getForTileName(name);	
 	}
-	
-	private void addAll() {
-		List<TileDetails> details = tileDetailsDAO.findAll();
-		for(TileDetails detail: details) {
-			addTileVariations(detail);
-		}
-		
-	}
-	
+
+
 	private void addTileVariations(TileDetails details) {
 		TileNameEnum name = details.getName();
 		if(name.equals(TileNameEnum.I) || name.equals(TileNameEnum.X) || name.equals(TileNameEnum.O)) {
+			tileVariationsDAO.save(new TileVariations(0L, details, getMatrix(details.getTileSquares()), 0, false, false));
 			return;
 		}
 		if(name.equals(TileNameEnum.I3) || name.equals(TileNameEnum.I2) || name.equals(TileNameEnum.I4)
@@ -63,11 +60,6 @@ public class TileVariationsServiceImpl implements ITileVariationsService{
 			return;
 		}
 		
-		if(name.equals(TileNameEnum.T4) || name.equals(TileNameEnum.T5) || name.equals(TileNameEnum.V3)
-				|| name.equals(TileNameEnum.V5) || name.equals(TileNameEnum.W)) {
-			addThree90Rotation(getMatrix(details.getTileSquares()), details);
-			return;
-		}
 		if(name.equals(TileNameEnum.Z4) || name.equals(TileNameEnum.Z5) || name.equals(TileNameEnum.U)) {
 			addThree(getMatrix(details.getTileSquares()), details);
 			return;
@@ -100,52 +92,59 @@ public class TileVariationsServiceImpl implements ITileVariationsService{
 	}
 	
 	private void addOne90Rotation(int[][] tile, TileDetails details) {
+		tileVariationsDAO.save(new TileVariations(0L, details, tile, 0, false, false));
 		int [][] rotated = matrixService.rotate90Clockwise(tile);
-		tileVariationsDAO.save(new TileVariations(0L, details, rotated));
+		tileVariationsDAO.save(new TileVariations(0L, details, rotated, 90, false, false));
 	}
 	
 	private void addThree90Rotation(int[][] tile, TileDetails details) {
+		tileVariationsDAO.save(new TileVariations(0L, details, tile, 0, false, false));
+
 		int [][] rotated = tile;
 		for(int i = 1; i <=3; i++){
 			rotated = matrixService.rotate90Clockwise(rotated);
-			tileVariationsDAO.save(new TileVariations(0L, details, rotated));
+			tileVariationsDAO.save(new TileVariations(0L, details, rotated, i*90, false, false));
 		}
 	}
 	
 	private void addThree(int[][] tile, TileDetails details) {
+		tileVariationsDAO.save(new TileVariations(0L, details, tile, 0, false, false));
+
 		// one flipX - 1 , one rotation -2 then flipY -3
 		int [][] flipX = matrixService.flipX(tile);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipX));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipX, 0, true, false));
 		
 		int [][] rotated = matrixService.rotate90Clockwise(tile);
-		tileVariationsDAO.save(new TileVariations(0L, details, rotated));
+		tileVariationsDAO.save(new TileVariations(0L, details, rotated, 90, true, false));
 		
-		int [][] flipY = matrixService.flipX(rotated);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipY));
+		int [][] flipY = matrixService.flipY(rotated);
+		tileVariationsDAO.save(new TileVariations(0L, details, flipY, 90, true, true));
 	}
 	
 	private void addSeven(int[][] tile, TileDetails details) {
+		tileVariationsDAO.save(new TileVariations(0L, details, tile, 0, false, false));
+
 		//1 
 		int [][] flipX = matrixService.flipX(tile);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipX));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipX, 0, true, false));
 		//2
 		int [][] flipY = matrixService.flipY(flipX);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipY));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipY, 0, true, true));
 		//3
 		flipY = matrixService.flipY(tile);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipY));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipY, 0, false, true));
 		//4
 		int [][] rotated = matrixService.rotate90Clockwise(tile);
-		tileVariationsDAO.save(new TileVariations(0L, details, rotated));
+		tileVariationsDAO.save(new TileVariations(0L, details, rotated, 90, false, false));
 		//5
 		flipX = matrixService.flipX(rotated);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipX));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipX, 90, true, false));
 		//6
 		flipY = matrixService.flipY(flipX);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipY));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipY, 90, true, true));
 		//7
 		flipY = matrixService.flipY(rotated);
-		tileVariationsDAO.save(new TileVariations(0L, details, flipY));
+		tileVariationsDAO.save(new TileVariations(0L, details, flipY, 90, false, true));
 		
 	}
 	

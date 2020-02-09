@@ -10,7 +10,6 @@ import cs.blokus.dao.TileDAO;
 import cs.blokus.dto.TileDTO;
 import cs.blokus.entity.Tile;
 import cs.blokus.entity.TileDetails;
-import cs.blokus.entity.TileSquare;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.enums.TileNameEnum;
 import cs.blokus.model_mapping.ModelMapping;
@@ -38,35 +37,27 @@ public class TileServiceImpl implements ITileService {
 	private ITileVariationsService tileVariationsService;
 	
 	@Override
-	public List<TileDTO> getAvailableForGame(Long idGame) {
-		List<Tile> tiles = tileDAO.getAvailableTiles(idGame);
+	public List<TileDTO> getAvailableForGame(Long idGame, TileColorEnum color) {
+		List<Tile> tiles = tileDAO.getAvailableTiles(idGame, color);
 		List<TileDTO> dtos = new ArrayList<>();
-		for(Tile tile: tiles) {
-			dtos.add(modelMapper.map(tile, TileDTO.class));
-		}
+		tiles.stream().forEach(tile -> dtos.add(modelMapper.map(tile, TileDTO.class)));
 		return dtos;
 	}
 
 	@Override
 	public List<TileDTO> getAll() {
 		tileDetailsService.create();
-		tileVariationsService.saveAll();
 		tileSquareService.createAll();
 		if (tileDAO.count() != 84) {
 			tileDAO.deleteAll();
 			addAll();
 		}
+		tileVariationsService.saveAll();
+		
 		List<TileDTO> dtos = new ArrayList<>();
 		List<Tile> tiles = tileDAO.findAll();
-		for (Tile tile : tiles) {
-			TileDetails tileDet = tile.getTileDetails();
-			List<TileSquare> squares = tileSquareService.getForTile(tile.getTileDetails().getName());
-			tileDet.setTileSquares(squares);
-			tile.setTileDetails(tileDet);
-			TileDTO dto = (TileDTO) modelMapper.map(tile, TileDTO.class);
-
-			dtos.add(dto);
-		}
+		tiles.stream().forEach(tile -> dtos.add(modelMapper.map(tile, TileDTO.class)));
+	
 		return dtos;
 	}
 

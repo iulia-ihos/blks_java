@@ -18,6 +18,9 @@ public class ArrayConverter implements AttributeConverter<int[][], String> {
     public String convertToDatabaseColumn(int[][] board) {
  
         String boardJson = null;
+        if(board == null) {
+        	board = new int[20][20];
+        }
         try {
            
 			boardJson = objectMapper.writeValueAsString(board);
@@ -30,7 +33,6 @@ public class ArrayConverter implements AttributeConverter<int[][], String> {
  
     @Override
     public int[][] convertToEntityAttribute(String boardJSON) {
- 
        int[][] board = null;
         try {
             board = objectMapper.readValue(boardJSON, int[][].class);

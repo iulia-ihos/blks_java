@@ -1,4 +1,4 @@
-package cs.blokus.test.service;
+package cs.blokus.service;
 
 import static org.junit.Assert.*;
 

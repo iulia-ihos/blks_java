@@ -2,6 +2,8 @@ package cs.blokus.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @SuppressWarnings("serial")
 public class TilePositionDTO implements Serializable{
 	
@@ -9,7 +11,11 @@ public class TilePositionDTO implements Serializable{
 	private double top;
 	private double left;
 	private int angle;
+	 
+	@JsonProperty(value="isFlippedHorizontally")   
 	private boolean isFlippedHorizontally;
+	
+	@JsonProperty(value="isFlippedVertically") 
 	private boolean isFlippedVertically;
 	
 	public TilePositionDTO(Long idTilePosition, double top, double left, int angle, boolean isFlippedHorizontally,
@@ -25,12 +31,12 @@ public class TilePositionDTO implements Serializable{
 	public TilePositionDTO() {
 	}
 
-	public Long getIdBoardPosition() {
+	public Long getIdTilePosition() {
 		return idTilePosition;
 	}
 
-	public void setIdBoardPosition(Long idBoardPosition) {
-		this.idTilePosition = idBoardPosition;
+	public void setIdTilePosition(Long idTilePosition) {
+		this.idTilePosition = idTilePosition;
 	}
 
 	public double getTop() {
@@ -57,6 +63,8 @@ public class TilePositionDTO implements Serializable{
 		this.angle = angle;
 	}
 
+	
+
 	public boolean isFlippedHorizontally() {
 		return isFlippedHorizontally;
 	}
@@ -73,4 +81,13 @@ public class TilePositionDTO implements Serializable{
 		this.isFlippedVertically = isFlippedVertically;
 	}
 
+	@Override
+	public String toString() {
+		return "TilePositionDTO [idTilePosition=" + idTilePosition + ", top=" + top + ", left=" + left + ", angle="
+				+ angle + ", isFlippedHorizontally=" + isFlippedHorizontally + ", isFlippedVertically="
+				+ isFlippedVertically + "]";
+	}
+
+	
+	
 }

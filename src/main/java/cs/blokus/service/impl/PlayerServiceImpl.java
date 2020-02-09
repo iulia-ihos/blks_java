@@ -23,11 +23,8 @@ public class PlayerServiceImpl implements IPlayerService {
 	
 	@Autowired
 	private IPlayerDetailsService playerDetailsService;
-	
 
-//	private PlayerDTO getById(Long id) {
-//		return modelMapper.map(playerDAO.findById(id).get(), PlayerDTO.class);
-//	}
+	
 
 
 	@Override
@@ -39,7 +36,9 @@ public class PlayerServiceImpl implements IPlayerService {
 		player.setPlayerDetails(pd);
 		Player returnedPlayer = this.playerDAO.save(player);
 		PlayerDTO returnedPlayerDTO =  modelMapper.map(returnedPlayer, PlayerDTO.class);
-		returnedPlayerDTO.setPlayerDetails(playerDetails);
+		PlayerDetailsDTO pdDTO = returnedPlayerDTO.getPlayerDetails();
+		pdDTO.setUsername(returnedPlayer.getPlayerDetails().getUser().getUsername());
+		returnedPlayerDTO.setPlayerDetails(pdDTO);
 		return returnedPlayerDTO;
 	}
 

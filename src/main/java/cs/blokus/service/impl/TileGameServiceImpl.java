@@ -28,8 +28,11 @@ public class TileGameServiceImpl implements ITileGameService{
 		for(Tile tile: tiles) {
 			tileGameDAO.save(new TileGame(0L, game, tile, false));
 		}
-		System.out.println(tileGameDAO.findAll());
-		
+	}
+	
+	@Override
+	public void setUsed(Long idGame, Long idTile) {
+		tileGameDAO.updateUsed(true, idGame, idTile);
 	}
 	
 	

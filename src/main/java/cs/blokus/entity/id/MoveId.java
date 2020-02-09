@@ -17,8 +17,7 @@ public class MoveId implements Serializable{
 	}
 	
 	public MoveId() {}
-
-
+	
 	public Long getIdGame() {
 		return idGame;
 	}

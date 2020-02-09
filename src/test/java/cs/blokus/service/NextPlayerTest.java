@@ -1,6 +1,6 @@
-package cs.blokus.test.service;
+package cs.blokus.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import cs.blokus.dto.BoardPosition;
 import cs.blokus.dto.GameDTO;
+import cs.blokus.dto.PlayerDetailsDTO;
 import cs.blokus.dto.Position;
 import cs.blokus.dto.TileDTO;
 import cs.blokus.enums.GameStatusEnum;
@@ -27,6 +28,7 @@ import cs.blokus.service.IBoardService;
 import cs.blokus.service.ICornerService;
 import cs.blokus.service.IGameService;
 import cs.blokus.service.IMoveService;
+import cs.blokus.service.IPlayerDetailsService;
 import cs.blokus.service.ITileService;
 
 @RunWith(SpringRunner.class)
@@ -50,6 +52,9 @@ public class NextPlayerTest {
 	@Autowired
 	private ITileService tileService;
 	
+	@Autowired
+	private IPlayerDetailsService playerDetailsService;
+	
 
 	@Test
 	@DatabaseSetup(value = "/tiles.xml")
@@ -66,7 +71,7 @@ public class NextPlayerTest {
 		BoardPosition pos = new BoardPosition(coords);
 		
 		System.out.println("b");
-		System.out.println(cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()));
+		System.out.println( cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()));
 		boardService.addToBoard(TileColorEnum.red, pos, game.getIdGame());
 		System.out.println("a");
 		System.out.println(cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()));
@@ -88,4 +93,26 @@ public class NextPlayerTest {
 		assertEquals(6, cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()).size());
 		
 	}
+	
+	@Test
+	@DatabaseSetup(value = "/tiles.xml")
+	public void currentRed_thenNextIsGreen() {
+		tileService.getAll();
+		
+		GameDTO game = gameService.create(new GameDTO(0L, GameStatusEnum.PENDING));
+		
+		List<Position> coords = new ArrayList<>();
+		coords.add(new Position(0,0));
+		coords.add(new Position(1,0));
+		coords.add(new Position(2,0));
+		coords.add(new Position(1,1));
+		BoardPosition pos = new BoardPosition(coords);
+		
+		boardService.addToBoard(TileColorEnum.red, pos, game.getIdGame());
+		
+		PlayerDetailsDTO player = playerDetailsService.getNextPlayer(TileColorEnum.red, game.getIdGame());
+		
+		assertEquals(TileColorEnum.green, player.getColor());
+	}
 }
+

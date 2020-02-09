@@ -66,7 +66,11 @@ public class Move {
 
 	public void setPosition(TilePosition position) {
 		this.position = position;
+	}
+
+	@Override
+	public String toString() {
+		return "Move [tile=" + tile + ", game=" + game + ", position=" + position + "]";
 	} 
-	
 	
 }

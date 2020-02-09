@@ -49,7 +49,7 @@ public class Game {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<TileGame> tiles;
 	
-	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
 	private List<Corner> corners;
 	
 	@OneToOne(mappedBy = "game")

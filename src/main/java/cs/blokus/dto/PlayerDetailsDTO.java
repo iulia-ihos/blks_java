@@ -2,7 +2,6 @@ package cs.blokus.dto;
 
 import java.io.Serializable;
 
-import cs.blokus.entity.User;
 import cs.blokus.enums.TileColorEnum;
 
 @SuppressWarnings("serial")

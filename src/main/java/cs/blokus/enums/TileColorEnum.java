@@ -1,5 +1,5 @@
 package cs.blokus.enums;
 
 public enum TileColorEnum {
-	red, green, blue, yellow
+	red, green, yellow, blue
 }

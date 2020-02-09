@@ -37,12 +37,6 @@ public class GameMessageController {
 	 private IPlayerDetailsService playerDetailsService;
 	 
 	 @Autowired 
-	 private IUserService userService;
-	 
-	 @Autowired 
-	 private ITileService tileService;
-	 
-	 @Autowired 
 	 private IMoveService moveService;
 	 
 	 @Autowired 
@@ -62,9 +56,7 @@ public class GameMessageController {
 	}
 	
 	@MessageMapping("/players")
-	@SendTo("/game/start")
-	public PlayersMessage startGame(PlayersMessage message) {
-
+	public void startGame(PlayersMessage message) {
 		List<PlayerDTO> players = message.getPlayers();
 		List<PlayerDTO> finalPlayers = new ArrayList<>();
 		for(PlayerDTO player: players) {
@@ -72,16 +64,16 @@ public class GameMessageController {
 		}
 		
 		PlayersMessage playersMessage = new PlayersMessage(finalPlayers);
-		return playersMessage;
-//		for(PlayerDTO player: players) {
-//			messagingTemplate.convertAndSendToUser(player.getPlayerDetails().getUsername(), "/game/start", playersMessage);
-//		}
+	
+		for(PlayerDTO player: players) {
+			messagingTemplate.convertAndSendToUser(player.getPlayerDetails().getUsername(), "/game/start", playersMessage);
+		}
 	
 	}
 	
 	@MessageMapping("/move")
-	@SendTo("/game/move")
-	public MoveMessage sendNextMove(MoveMessage message) {
+	
+	public void sendNextMove(MoveMessage message) {
 		MoveDTO move = moveService.createMove(message.getMove());
 		boardService.addToBoard(message.getMove().getTile().getColor(), message.getBoardPosition(), 
 				message.getMove().getGame().getIdGame());
@@ -90,12 +82,12 @@ public class GameMessageController {
 		PlayerDetailsDTO next = playerDetailsService.getNextPlayer(current.getColor(), move.getGame().getIdGame());
 		
 		MoveMessage moveMessage = new MoveMessage(move, current, next);
-		return moveMessage;
-//		List<PlayerDetailsDTO> players = this.playerDetailsService.getPlayersDetailsForGame(move.getGame().getIdGame()); 
-//		
-//		for(PlayerDetailsDTO player: players) {
-//			messagingTemplate.convertAndSendToUser(player.getUsername(), "/game/move", moveMessage);
-//		}
+		
+		List<PlayerDetailsDTO> players = this.playerDetailsService.getPlayersDetailsForGame(move.getGame().getIdGame()); 
+		
+		for(PlayerDetailsDTO player: players) {
+			messagingTemplate.convertAndSendToUser(player.getUsername(), "/game/move", moveMessage);
+		}
 		
 
 	}

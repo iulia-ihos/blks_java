@@ -15,7 +15,7 @@ import cs.blokus.service.IUserService;
 public class UserServiceImpl implements IUserService{
 	
 	@Autowired
-	private ModelMapper modelMapper;
+	private ModelMapper mapper;
 	
 	@Autowired
 	private UserDAO userDAO;
@@ -30,28 +30,15 @@ public class UserServiceImpl implements IUserService{
 		}
 						
 		user.setPassword(Encryption.encryptPassword(user.getPassword()));
-		User usr = convertToEntity(user);
-		return convertToDto(userDAO.save(usr));
+		User usr = mapper.map(user, User.class);
+		return mapper.map(userDAO.save(usr), UserDTO.class);
 	}
 
+	@Override
 	public UserDTO findByUsername(String username) {
-		return convertToDto(userDAO.findByUsername(username));
+		return mapper.map(userDAO.findByUsername(username), UserDTO.class);
 	}
 	
-	
-
-	private UserDTO convertToDto(User user) {
-		UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-	    //userDTO.setRol(modelMapper.map(user.getRol(), RolesEnum.class));
-	    return userDTO;
-	}
-	
-	private User convertToEntity(UserDTO userDto) {
-	    User user = modelMapper.map(userDto, User.class);
-	  //  user.setRol(modelMapper.map(userDto.getRol(), Role.class));
-	    return user;
-	}
-
 	@Override
 	public boolean checkUsername(String username) {
 		if(userDAO.findByUsername(username) == null)

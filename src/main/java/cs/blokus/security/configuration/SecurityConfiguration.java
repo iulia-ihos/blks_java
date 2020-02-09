@@ -21,7 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 
 import cs.blokus.encryption.Encryption;
 import cs.blokus.security.jwt.JwtAuthEntryPoint;
-import cs.blokus.security.jwt.JwtAuthTokenFilter;
+import cs.blokus.security.jwt.JwtAuthFilter;
 import cs.blokus.security.services.UserDetailsServiceImpl;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -30,8 +30,8 @@ import cs.blokus.security.services.UserDetailsServiceImpl;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
  	@Bean
-    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-        return new JwtAuthTokenFilter();
+    public JwtAuthFilter authenticationJwtTokenFilter() {
+        return new JwtAuthFilter();
     }
 
     @Override

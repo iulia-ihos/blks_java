@@ -20,15 +20,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import cs.blokus.security.services.UserDetailsServiceImpl;
 
 @Order(3)
-public class JwtAuthTokenFilter extends OncePerRequestFilter {
+public class JwtAuthFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtProvider tokenProvider;
+	private JwtUtils tokenProvider;
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 
-	private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
+	private static final Logger logger = LoggerFactory.getLogger(JwtAuthFilter.class);
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -49,12 +49,14 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				
 				SecurityContextHolder.getContext().setAuthentication(authentication);
+				
 				
 				response.setHeader("Access-Control-Allow-Credentials", "true");
 				response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
 				
+			} else {
+				//SecurityContextHolder.getContext().setAuthentication(null);
 			}
 		} catch (Exception e) {
 			

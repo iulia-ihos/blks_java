@@ -5,6 +5,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class MoveDTO implements Serializable {
 
+	@Override
+	public String toString() {
+		return "MoveDTO [tile=" + tile + ", game=" + game + ", position=" + position + "]";
+	}
+
 	private TileDTO tile;
 	private GameDTO game;
 	private TilePositionDTO position;

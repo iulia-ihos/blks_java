@@ -9,6 +9,6 @@ public interface ITileVariationsService {
 
 	public void saveAll();
 
-	List<TileVariations> getFotTile(TileNameEnum name);
+	List<TileVariations> getForTile(TileNameEnum name);
 	
 }

@@ -1,8 +1,6 @@
-package cs.blokus.data_access;
+package cs.blokus.service;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,16 +14,14 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import cs.blokus.entity.TileDetails;
-import cs.blokus.entity.TileSquare;
-import cs.blokus.service.ITileDetailsService;
-import cs.blokus.service.ITileSquareService;
+import cs.blokus.dao.TileDetailsDAO;
+import cs.blokus.dao.TileSquareDAO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({ TransactionalTestExecutionListener.class, DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
-public class TileDetailsServiceDBUnitTest {
+public class TileDetailsServiceTest {
 
 
     @Autowired
@@ -34,29 +30,21 @@ public class TileDetailsServiceDBUnitTest {
     @Autowired
     private ITileDetailsService tileDetailsService;
 	
+    @Autowired 
+    private TileSquareDAO tileSquareDAO;
+    
+    @Autowired 
+    private TileDetailsDAO tileDetailsDAO;
 	
 	@Test
-	@DatabaseSetup(value = "/tiles.xml")
-	public void testSquares() {
+	@DatabaseSetup(value = "/empty.xml")
+	public void testCreate() {
 		
+		tileDetailsService.create();
 		tileSquareService.createAll();
-		List<TileDetails> tiles = tileDetailsService.create();
-				
-		for(TileDetails det: tiles) {
-			
-			List<TileSquare> squares = det.getTileSquares();
-			assert(squares.size()!=0);
-			
-			assertNotNull(squares.get(0).getSquare());
-			
-//			List<TileSquare> foundSquares = tileSquareService.getForTile(det);
-//			
-//			for(int i = 0; i<= foundSquares.size(); i++) {
-//				assertEquals(foundSquares.get(i), squares.get(i));
-//			}
-			
-			
-		}
+		
+		assertEquals(tileSquareDAO.count(), 89);
+		assertEquals(tileDetailsDAO.count(), 21);
 	
 	}
 }

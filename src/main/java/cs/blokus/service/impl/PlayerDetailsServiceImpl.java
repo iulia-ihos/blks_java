@@ -35,68 +35,30 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 	
 	@Override
 	public PlayerDetailsDTO updateScore(Long id, int points) {
-		playerDetailsDAO.updateScore(id, points);
+		int score = playerDetailsDAO.findById(id).get().getPoints();
+		playerDetailsDAO.updateScore(id, score + points);
 		return getById(id);
 	}
-
-
-
-
-	private PlayerDetailsDTO getById(Long id) {
-		PlayerDetails details = playerDetailsDAO.findById(id).get();
-		PlayerDetailsDTO dto = modelMapper.map(details, PlayerDetailsDTO.class);
-		dto.setUsername(details.getUser().getUsername());
-		return dto;
-	}
-
-
-
-
 
 	@Override
 	public PlayerDetailsDTO create(PlayerDetailsDTO playerDetails) {
 		User user = userDAO.findByUsername(playerDetails.getUsername());
 		PlayerDetails pd = (PlayerDetails)modelMapper.map(playerDetails, PlayerDetails.class);
 		pd.setUser(user);
-		System.out.println(pd);
 		PlayerDetails details = playerDetailsDAO.save(pd);
 		
 		PlayerDetailsDTO returnedEntity =  modelMapper.map(details, PlayerDetailsDTO.class);
-		returnedEntity.setUsername(user.getUsername());
+		returnedEntity.setUsername(details.getUser().getUsername());
 		return returnedEntity;
 	}
-
-
 
 
 	@Override
 	public PlayerDetailsDTO getNextPlayer(TileColorEnum currentColor, Long idGame) {
 		TileColorEnum nextColor = null;
-		TileColorEnum[] checkColors = new TileColorEnum[4];
-//		switch(currentColor) {
-//			case red: 
-//				checkColors[0] = TileColorEnum.green;
-//				checkColors[1] = TileColorEnum.green;
-//				checkColors[2] = TileColorEnum.green;
-//				checkColors[3] = TileColorEnum.green;
-//				nextColor = checkTheNextColors(checkColors, idGame);		
-//				break;
-//			case green: 
-//				if(boardService.hasMove(TileColorEnum.yellow, idGame))
-//					nextColor = TileColorEnum.yellow;
-//				break;
-//			case yellow: 
-//				if(boardService.hasMove(TileColorEnum.blue, idGame))
-//					nextColor = TileColorEnum.blue;
-//				break;
-//			case blue: 
-//				if(boardService.hasMove(TileColorEnum.red, idGame))
-//					nextColor = TileColorEnum.red;
-//				break;
-//			
-//		}
-		nextColor = checkTheRestOfColors(currentColor, idGame);
-		
+		nextColor = checkTheOtherColors(currentColor, idGame);
+		System.out.println("result");
+		System.out.println(nextColor);
 		if(nextColor == null) 
 			return null;
 		PlayerDetails details = playerDetailsDAO.getPlayer(nextColor, idGame);
@@ -104,42 +66,6 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 		dto.setUsername(details.getUser().getUsername());
 		return dto;
 	}
-
-    private TileColorEnum checkTheNextColors(TileColorEnum[] checkColor, Long idGame) {
-    	for(TileColorEnum color: checkColor) {
-    		if(boardService.hasMove(color, idGame))
-    			return color;
-    	}
-    return null;
-    }
-    
-    private TileColorEnum checkTheRestOfColors(TileColorEnum checkColor, Long idGame) {
-    	TileColorEnum[] colors = TileColorEnum.values();
-    	boolean check = false;
-    	//check next after color
-    	for(TileColorEnum color: colors) {
-    		if(check) {
-    			if(boardService.hasMove(color, idGame))
-        			return color;
-    		} else {
-    			if(color.equals(checkColor)) {
-        			check = true;
-        		}
-    		}	
-    	}
-    	//check up to color
-    	for(TileColorEnum color: colors) {
-    		if(check) {
-    			if(boardService.hasMove(color, idGame))
-        			return color;
-    			if(color.equals(checkColor)) {
-        			check = false;
-        		}
-    		}
-    	}
-    return null;
-    }
-
 
 	@Override
 	public List<PlayerDetailsDTO> getPlayersDetailsForGame(Long idGame) {
@@ -152,5 +78,36 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 		}
 		return dtos;
 	}
+	
+	private PlayerDetailsDTO getById(Long id) {
+		PlayerDetails details = playerDetailsDAO.findById(id).get();
+		PlayerDetailsDTO dto = modelMapper.map(details, PlayerDetailsDTO.class);
+		dto.setUsername(details.getUser().getUsername());
+		return dto;
+	}
+	
+	 private TileColorEnum checkTheOtherColors(TileColorEnum currentColor, Long idGame) {
+	    	TileColorEnum[] colors = TileColorEnum.values();
+	    	boolean currentChecked = false;
+	    	//check next colors
+	    	for(TileColorEnum color: colors) {
+	    		if(currentChecked) {
+	    			if(boardService.hasMove(color, idGame))
+	        			return color;
+	    		} else {
+	    			if(color.equals(currentColor)) {
+	        			currentChecked = true;
+	        		}
+	    		}	
+	    	}
+	    	//check up to color
+	    	for(TileColorEnum color: colors) {
+	    		if(currentChecked) {
+	    			if(boardService.hasMove(color, idGame))
+	        			return color;
+	    		}
+	    	}
+	    return null;
+	    }
 
 }

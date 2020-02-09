@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import cs.blokus.enums.CornerType;
 import cs.blokus.enums.TileColorEnum;
 
 @Entity
@@ -29,6 +30,18 @@ public class Corner {
 	@Column(name = "color")
 	private TileColorEnum color;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type")
+	private CornerType type;
+	
+	public CornerType getType() {
+		return type;
+	}
+
+	public void setType(CornerType type) {
+		this.type = type;
+	}
+
 	@Column(name = "topmost")
 	private int top;
 	
@@ -89,8 +102,7 @@ public class Corner {
 
 	@Override
 	public String toString() {
-		return "Corner [idCorner=" + idCorner  + ", color=" + color + ", top=" + top + ", left="
-				+ left + "]";
+		return "Corner [color=" + color + ", top=" + top + ", left=" + left +  ", type=" + type + "]";
 	}
 	
 	

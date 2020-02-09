@@ -1,0 +1,28 @@
+<dataset>
+
+	<Tile_Details name ="T4" number_squares = "4"/>
+	<Tile_Details name ="I" number_squares = "1"/>
+	
+	<Tile id_tile = "1" tile_name ="T4" color = "red"/>
+	<Tile id_tile = "2" tile_name ="I" color = "red"/>
+	
+	<Square id_square =  "top0Left0" topmost =  "0" leftmost = "0"/>
+	<Square id_square =  "top0Left1" topmost =  "0" leftmost = "1"/>
+	<Square id_square =  "top1Left0" topmost =  "1" leftmost = "0"/>
+	<Square id_square =  "top1Left1" topmost =  "1" leftmost = "1"/>
+	<Square id_square =  "top1Left2" topmost =  "1" leftmost = "2"/>
+	
+	<Tile_Square id_square =  "top0Left0" tile_name = "I"/>
+	<Tile_Square id_square =  "top0Left1" tile_name = "T4"/>
+	<Tile_Square id_square =  "top1Left0" tile_name = "T4"/>
+	<Tile_Square id_square =  "top1Left1" tile_name = "T4"/>
+	<Tile_Square id_square =  "top1Left2" tile_name = "T4"/>
+
+	<Position id_tile_position = "1" angle = "0" flipx = "0" flipy = "0" leftmost = "0" topmost = "0"/>
+	
+	<Game id_game = "1"/>
+	<Game id_game = "2"/>
+	
+	<Move id_game = "1" id_tile = "1" id_board_position = "1"/>
+	<Move id_game = "2" id_tile = "2" id_board_position = "1"/>
+</dataset>

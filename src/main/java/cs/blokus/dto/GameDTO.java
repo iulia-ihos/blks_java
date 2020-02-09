@@ -31,6 +31,10 @@ public class GameDTO implements Serializable {
 		this.idGame = idGame;
 		this.status = status;
 	}
+	
+	public GameDTO(Long idGame) {
+		this.idGame = idGame;
+	}
 
 	public Long getIdGame() {
 		return idGame;

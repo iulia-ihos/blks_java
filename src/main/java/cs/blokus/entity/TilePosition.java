@@ -16,10 +16,10 @@ public class TilePosition {
 	private Long idTilePosition;
 	
 	@Column(name = "topmost")
-	private double top;
+	private int top;
 	
 	@Column(name = "leftmost")
-	private double left;
+	private int left;
 	
 	@Column(name = "angle")
 	private int angle;
@@ -30,7 +30,7 @@ public class TilePosition {
 	@Column(name = "flipY")
 	private boolean isFlippedVertically;
 
-	public TilePosition(Long idTilePosition, double top, double left, int angle, boolean isFlippedHorizontally,
+	public TilePosition(Long idTilePosition, int top, int left, int angle, boolean isFlippedHorizontally,
 			boolean isFlippedVertically) {
 		this.idTilePosition = idTilePosition;
 		this.top = top;
@@ -51,19 +51,19 @@ public class TilePosition {
 		this.idTilePosition = idBoardPosition;
 	}
 
-	public double getTop() {
+	public int getTop() {
 		return top;
 	}
 
-	public void setTop(double top) {
+	public void setTop(int top) {
 		this.top = top;
 	}
 
-	public double getLeft() {
+	public int getLeft() {
 		return left;
 	}
 
-	public void setLeft(double left) {
+	public void setLeft(int left) {
 		this.left = left;
 	}
 
@@ -73,6 +73,14 @@ public class TilePosition {
 
 	public void setAngle(int angle) {
 		this.angle = angle;
+	}
+	
+	public Long getIdTilePosition() {
+		return idTilePosition;
+	}
+
+	public void setIdTilePosition(Long idTilePosition) {
+		this.idTilePosition = idTilePosition;
 	}
 
 	public boolean isFlippedHorizontally() {
@@ -90,6 +98,16 @@ public class TilePosition {
 	public void setFlippedVertically(boolean isFlippedVertically) {
 		this.isFlippedVertically = isFlippedVertically;
 	}
+
+	@Override
+	public String toString() {
+		return "TilePosition [idTilePosition=" + idTilePosition + ", top=" + top + ", left=" + left + ", angle=" + angle
+				+ ", isFlippedHorizontally=" + isFlippedHorizontally + ", isFlippedVertically=" + isFlippedVertically
+				+ "]";
+	}
+	
+	
+	
 	
 	
 }

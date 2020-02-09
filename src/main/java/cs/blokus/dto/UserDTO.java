@@ -7,11 +7,24 @@ import cs.blokus.enums.RolesEnum;
 @SuppressWarnings("serial")
 public class UserDTO implements Serializable {
 	
+	public UserDTO(Long idUser, String email, String username, String password, RolesEnum role) {
+		this.idUser = idUser;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+	
+	public UserDTO() {
+		
+	}
+	
 	private Long idUser;
 	private String email;
 	private String username;
 	private String password;
 	private RolesEnum role;
+	
 	
 	//setters and getters
 	public Long getIdUser() {
