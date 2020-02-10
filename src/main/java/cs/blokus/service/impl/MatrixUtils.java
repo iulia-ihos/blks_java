@@ -3,7 +3,7 @@ package cs.blokus.service.impl;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MatrixService {
+public class MatrixUtils {
 	
 	public int[][] rotate90Clockwise(int[][] m) {
 		int result[][] = new int[m[0].length][m.length];

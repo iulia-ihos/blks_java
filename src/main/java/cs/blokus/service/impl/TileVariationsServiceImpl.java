@@ -23,7 +23,7 @@ public class TileVariationsServiceImpl implements ITileVariationsService{
 	private TileDetailsDAO tileDetailsDAO;
 
 	@Autowired
-	private MatrixService matrixService;
+	private MatrixUtils matrixService;
 
 	@Override
 	public void saveAll() {

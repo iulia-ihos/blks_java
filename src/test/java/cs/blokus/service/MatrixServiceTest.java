@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import cs.blokus.service.impl.MatrixService;
+import cs.blokus.service.impl.MatrixUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MatrixServiceTest {
 	
 	@Autowired 
-	private MatrixService matrixService;
+	private MatrixUtils matrixService;
 	
 	@Test
 	public void testRotation(){

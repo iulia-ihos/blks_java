@@ -1,5 +1,6 @@
 package cs.blokus.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +22,7 @@ public class Player {
 	@JoinColumn(name = "idGame", nullable = false)
 	private Game game;
 
-	@OneToOne
-	@JoinColumn(name = "idPlayerDetails")
+	@OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
 	private PlayerDetails playerDetails;
 
 
@@ -58,6 +58,11 @@ public class Player {
 
 	public void setPlayerDetails(PlayerDetails playerDetails) {
 		this.playerDetails = playerDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [idPlayer=" + idPlayer + ", game=" + game + ", playerDetails=" + playerDetails + "]";
 	}
 
 	

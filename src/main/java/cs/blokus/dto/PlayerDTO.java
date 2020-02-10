@@ -21,6 +21,11 @@ public class PlayerDTO implements Serializable{
 		this.playerDetails = playerDetails;
 		this.game = game;
 	}
+	
+	public PlayerDTO(Long idPlayer, Long idGame) {
+		this.idPlayer = idPlayer;
+		this.game = new GameDTO(idGame);
+	}
 
 
 	public Long getIdPlayer() {
@@ -55,6 +60,12 @@ public class PlayerDTO implements Serializable{
 
 	public void setGame(GameDTO game) {
 		this.game = game;
+	}
+
+
+	@Override
+	public String toString() {
+		return "PlayerDTO [idPlayer=" + idPlayer + ", playerDetails=" + playerDetails + ", game=" + game + "]";
 	}
 	
 	

@@ -1,4 +1,4 @@
 <dataset>
     <User id_user ="1" username="user" password = "passs" email=" email1" role="PLAYER"/>
-    <Game id_game = "1" />
+    <Game id_game = "1" using_pentobi =  "false"/>
 </dataset>

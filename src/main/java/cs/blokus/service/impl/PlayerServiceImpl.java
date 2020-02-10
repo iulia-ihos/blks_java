@@ -7,7 +7,6 @@ import cs.blokus.dao.PlayerDAO;
 import cs.blokus.dto.PlayerDTO;
 import cs.blokus.dto.PlayerDetailsDTO;
 import cs.blokus.entity.Player;
-import cs.blokus.entity.PlayerDetails;
 import cs.blokus.model_mapping.ModelMapping;
 import cs.blokus.service.IPlayerDetailsService;
 import cs.blokus.service.IPlayerService;
@@ -29,17 +28,11 @@ public class PlayerServiceImpl implements IPlayerService {
 
 	@Override
 	public PlayerDTO create(PlayerDTO playerDTO) {
-		PlayerDetailsDTO playerDetails = playerDetailsService.create(playerDTO.getPlayerDetails());
-		PlayerDetails pd = new PlayerDetails(playerDetails.getIdPlayerDetails());
-
-		Player player = modelMapper.map(playerDTO, Player.class);
-		player.setPlayerDetails(pd);
-		Player returnedPlayer = this.playerDAO.save(player);
-		PlayerDTO returnedPlayerDTO =  modelMapper.map(returnedPlayer, PlayerDTO.class);
-		PlayerDetailsDTO pdDTO = returnedPlayerDTO.getPlayerDetails();
-		pdDTO.setUsername(returnedPlayer.getPlayerDetails().getUser().getUsername());
-		returnedPlayerDTO.setPlayerDetails(pdDTO);
-		return returnedPlayerDTO;
+		PlayerDetailsDTO playerDetails = playerDetailsService.create(playerDTO.getPlayerDetails(), playerDTO);
+		Player player = playerDAO.findById(playerDetails.getIdPlayer()).get();
+		PlayerDTO returnedPlayerDTO =  modelMapper.map(player, PlayerDTO.class);
+		returnedPlayerDTO.setPlayerDetails(playerDetails);
+		return  returnedPlayerDTO;
 	}
 
 

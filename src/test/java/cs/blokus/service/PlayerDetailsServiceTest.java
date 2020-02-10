@@ -35,10 +35,11 @@ public class PlayerDetailsServiceTest {
 	@Test
 	@DatabaseSetup(value = "/player.xml")
 	public void testCreateThenUpdateScore() {
-		PlayerDetailsDTO playerDetailsDTO = playerDetailsService.create( new PlayerDetailsDTO(1L, "user", TileColorEnum.red, 0));
+		PlayerDTO playerDTO = new PlayerDTO(0L, 1L);
+		PlayerDetailsDTO playerDetailsDTO = playerDetailsService.create(new PlayerDetailsDTO(1L, "user", TileColorEnum.red, 0), playerDTO);
 		assertEquals(0, playerDetailsDTO.getPoints());
-		playerDetailsService.updateScore(playerDetailsDTO.getIdPlayerDetails(), 5);
-		assertEquals(5, playerDetailsDAO.findById(playerDetailsDTO.getIdPlayerDetails()).get().getPoints());
+		playerDetailsService.updateScore(playerDetailsDTO.getIdPlayer(), 5);
+		assertEquals(5, playerDetailsDAO.findByIdPlayerDetailsIdPlayer(playerDetailsDTO.getIdPlayer()).getPoints());
 	}
 
 }

@@ -23,7 +23,6 @@ public class CornerServiceImpl implements ICornerService{
 	public void create(Long idGame, TileColorEnum color, Position pos, CornerType type) {
 		Game game = new Game(idGame);
 		Corner corner = new Corner(0L, game, color, pos.getTop(), pos.getLeft());
-		corner.setType(type);
 		cornerDAO.save(corner);
 	}
 

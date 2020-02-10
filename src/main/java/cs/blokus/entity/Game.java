@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,13 +34,27 @@ public class Game {
 	@Column(name = "endTime")
 	private Date endTime;
 	
+	@Column(name = "usingPentobi")
+	private boolean usingPentobi;
+	
+	public boolean isUsingPentobi() {
+		return usingPentobi;
+	}
+
+	public void setUsingPentobi(boolean usingPentobi) {
+		this.usingPentobi = usingPentobi;
+	}
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	private GameStatusEnum status;
 
-	@OneToOne
-	@JoinColumn(name = "winner")
-	private User winner;
+	@ManyToMany
+	@JoinTable(
+			  name = "game_winner", 
+			  joinColumns = @JoinColumn(name = "idGame"), 
+			  inverseJoinColumns = @JoinColumn(name = "idUser"))
+	private List<User> winner;
 	
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	List<Player> players;
@@ -56,12 +72,11 @@ public class Game {
 	private Board board;
 
 
-	public Game(Long idGame, Date startTime, Date endTime, User winner, GameStatusEnum status) {
+	public Game(Long idGame, Date startTime, Date endTime,  GameStatusEnum status) {
 		this.status = status;
 		this.idGame = idGame;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.winner = winner;
 	}
 	
 	public Game() {}
@@ -94,12 +109,28 @@ public class Game {
 		this.endTime = endTime;
 	}
 
-	public User getWinner() {
+	public List<User> getWinner() {
 		return winner;
 	}
 
-	public void setWinner(User winner) {
+	public void setWinner(List<User> winner) {
 		this.winner = winner;
+	}
+
+	public List<TileGame> getTiles() {
+		return tiles;
+	}
+
+	public void setTiles(List<TileGame> tiles) {
+		this.tiles = tiles;
+	}
+
+	public List<Corner> getCorners() {
+		return corners;
+	}
+
+	public void setCorners(List<Corner> corners) {
+		this.corners = corners;
 	}
 
 	public List<Player> getPlayers() {

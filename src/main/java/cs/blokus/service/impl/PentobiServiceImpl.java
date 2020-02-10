@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.h2.engine.SysProperties;
 import org.springframework.stereotype.Component;
 
 import cs.blokus.entity.Move;
@@ -15,7 +14,6 @@ import cs.blokus.entity.TileSquare;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.pentobi.PentobiEngine;
 import cs.blokus.pentobi.PentobiGame;
-import cs.blokus.pentobi.utils.SGFWriter;
 import cs.blokus.service.IPentobiService;
 
 @Component

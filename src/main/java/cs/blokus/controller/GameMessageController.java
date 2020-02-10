@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -20,9 +19,6 @@ import cs.blokus.service.IBoardService;
 import cs.blokus.service.IMoveService;
 import cs.blokus.service.IPlayerDetailsService;
 import cs.blokus.service.IPlayerService;
-import cs.blokus.service.ITileGameService;
-import cs.blokus.service.ITileService;
-import cs.blokus.service.IUserService;
 
 @Controller
 public class GameMessageController {
@@ -77,7 +73,7 @@ public class GameMessageController {
 		MoveDTO move = moveService.createMove(message.getMove());
 		boardService.addToBoard(message.getMove().getTile().getColor(), message.getBoardPosition(), 
 				message.getMove().getGame().getIdGame());
-		PlayerDetailsDTO current = playerDetailsService.updateScore(message.getCurrentPlayer().getIdPlayerDetails(),
+		PlayerDetailsDTO current = playerDetailsService.updateScore(message.getCurrentPlayer().getIdPlayer(),
 				move.getTile().getTileDetails().getNumberSquares());
 		PlayerDetailsDTO next = playerDetailsService.getNextPlayer(current.getColor(), move.getGame().getIdGame());
 		

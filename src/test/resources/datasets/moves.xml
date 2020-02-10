@@ -20,8 +20,8 @@
 
 	<Position id_tile_position = "1" angle = "0" flipx = "0" flipy = "0" leftmost = "0" topmost = "0"/>
 	
-	<Game id_game = "1"/>
-	<Game id_game = "2"/>
+	<Game id_game = "1" using_pentobi =  "false"/>
+	<Game id_game = "2" using_pentobi =  "false"/>
 	
 	<Move id_game = "1" id_tile = "1" id_board_position = "1"/>
 	<Move id_game = "2" id_tile = "2" id_board_position = "1"/>

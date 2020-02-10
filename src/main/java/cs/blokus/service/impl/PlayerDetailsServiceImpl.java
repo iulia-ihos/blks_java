@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cs.blokus.dao.PlayerDAO;
 import cs.blokus.dao.PlayerDetailsDAO;
 import cs.blokus.dao.UserDAO;
+import cs.blokus.dto.PlayerDTO;
 import cs.blokus.dto.PlayerDetailsDTO;
+import cs.blokus.entity.Player;
 import cs.blokus.entity.PlayerDetails;
 import cs.blokus.entity.User;
 import cs.blokus.enums.TileColorEnum;
@@ -25,6 +28,9 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 	@Autowired
 	private PlayerDetailsDAO playerDetailsDAO;
 	
+	@Autowired
+	private PlayerDAO playerDAO;
+	
 	
 	@Autowired
 	private UserDAO userDAO;
@@ -35,20 +41,23 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 	
 	@Override
 	public PlayerDetailsDTO updateScore(Long id, int points) {
-		int score = playerDetailsDAO.findById(id).get().getPoints();
+		int score = playerDetailsDAO.findByIdPlayerDetailsIdPlayer(id).getPoints();
 		playerDetailsDAO.updateScore(id, score + points);
 		return getById(id);
 	}
 
 	@Override
-	public PlayerDetailsDTO create(PlayerDetailsDTO playerDetails) {
-		User user = userDAO.findByUsername(playerDetails.getUsername());
-		PlayerDetails pd = (PlayerDetails)modelMapper.map(playerDetails, PlayerDetails.class);
+	public PlayerDetailsDTO create(PlayerDetailsDTO playerDetailsDTO, PlayerDTO player) {
+		User user = userDAO.findByUsername(playerDetailsDTO.getUsername());
+		PlayerDetails pd = (PlayerDetails)modelMapper.map(playerDetailsDTO, PlayerDetails.class);
+		Player p = modelMapper.map(player,  Player.class);
 		pd.setUser(user);
-		PlayerDetails details = playerDetailsDAO.save(pd);
-		
+    	pd.setPlayer(p);
+		p.setPlayerDetails(pd);
+		PlayerDetails details = playerDAO.save(p).getPlayerDetails();
 		PlayerDetailsDTO returnedEntity =  modelMapper.map(details, PlayerDetailsDTO.class);
 		returnedEntity.setUsername(details.getUser().getUsername());
+		returnedEntity.setIdPlayer(details.getPlayer().getIdPlayer());
 		return returnedEntity;
 	}
 
@@ -80,7 +89,7 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 	}
 	
 	private PlayerDetailsDTO getById(Long id) {
-		PlayerDetails details = playerDetailsDAO.findById(id).get();
+		PlayerDetails details = playerDetailsDAO.findByIdPlayerDetailsIdPlayer(id);
 		PlayerDetailsDTO dto = modelMapper.map(details, PlayerDetailsDTO.class);
 		dto.setUsername(details.getUser().getUsername());
 		return dto;

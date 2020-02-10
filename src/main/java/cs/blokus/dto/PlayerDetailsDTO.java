@@ -7,7 +7,7 @@ import cs.blokus.enums.TileColorEnum;
 @SuppressWarnings("serial")
 public class PlayerDetailsDTO implements Serializable{
 
-	private Long idPlayerDetails;
+	private Long idPlayer;
 	private String username;
 	private TileColorEnum color;
 	private int points;
@@ -15,8 +15,8 @@ public class PlayerDetailsDTO implements Serializable{
 	
 	
 	
-	public PlayerDetailsDTO(Long idPlayerDetails,String username, TileColorEnum color, int points) {
-		this.idPlayerDetails = idPlayerDetails;
+	public PlayerDetailsDTO(Long idPlayer,String username, TileColorEnum color, int points) {
+		this.idPlayer = idPlayer;
 		this.username = username;
 		this.color = color;
 		this.points = points;
@@ -38,11 +38,11 @@ public class PlayerDetailsDTO implements Serializable{
 	}
 
 
-	public Long getIdPlayerDetails() {
-		return idPlayerDetails;
+	public Long getIdPlayer() {
+		return idPlayer;
 	}
-	public void setIdPlayerDetails(Long idPlayerDetails) {
-		this.idPlayerDetails = idPlayerDetails;
+	public void setIdPlayer(Long idPlayer) {
+		this.idPlayer = idPlayer;
 	}
 	
 	public TileColorEnum getColor() {
@@ -57,6 +57,14 @@ public class PlayerDetailsDTO implements Serializable{
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
+
+	@Override
+	public String toString() {
+		return "PlayerDetailsDTO [idPlayer=" + idPlayer + ", username=" + username + ", color=" + color + ", points="
+				+ points + "]";
+	}
+	
 	
 	
 }

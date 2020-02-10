@@ -13,6 +13,7 @@ public class GameDTO implements Serializable {
 	private Date endTime;
 	private UserDTO winner;
 	private GameStatusEnum status;
+	private boolean usingPentobi;
 	
 	
 	public GameDTO(Long idGame, Date startTime, Date endTime, UserDTO winner, GameStatusEnum status) {
@@ -81,6 +82,14 @@ public class GameDTO implements Serializable {
 	public String toString() {
 		return "GameDTO [idGame=" + idGame + ", startTime=" + startTime + ", endTime=" + endTime + ", winner=" + winner
 				+ ", status=" + status +  "]";
+	}
+
+	public boolean isUsingPentobi() {
+		return usingPentobi;
+	}
+
+	public void setUsingPentobi(boolean usingPentobi) {
+		this.usingPentobi = usingPentobi;
 	}
 	
 	
