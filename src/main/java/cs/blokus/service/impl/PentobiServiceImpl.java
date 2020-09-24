@@ -7,17 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import cs.blokus.entity.Move;
-import cs.blokus.entity.TileSquare;
+import cs.blokus.dto.MoveDTO;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.pentobi.PentobiEngine;
 import cs.blokus.pentobi.PentobiGame;
+import cs.blokus.pentobi.utils.CoordinatesConverter;
 import cs.blokus.service.IPentobiService;
 
 @Component
 public class PentobiServiceImpl implements IPentobiService{
+	
+	@Autowired 
+	private CoordinatesConverter converter;
 	
 	private static final Logger LOGGER = Logger.getLogger(PentobiServiceImpl.class.getName());
 	
@@ -29,9 +33,11 @@ public class PentobiServiceImpl implements IPentobiService{
 
 	@Override
 	public void start(Long idGame) {
-		PentobiEngine engine = PentobiEngine.getInstance();
-		PentobiGame game = new PentobiGame(engine.getProcess());
-		games.put(idGame, game);
+		if(games.get(idGame) == null) {
+			PentobiEngine engine = PentobiEngine.getInstance();
+			PentobiGame game = new PentobiGame(engine.getProcess());
+			games.put(idGame, game);	
+		}
 	}
 
 	
@@ -77,19 +83,23 @@ public class PentobiServiceImpl implements IPentobiService{
 	}
 	
 	public String waitForAnswer(Long idGame) {
-		String data = games.get(idGame).removeResponse();
-		while(data == null) {
-			data = games.get(idGame).removeResponse();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		String data = games.get(idGame).removeResponse();
 
 		return data;
 	}
 
 	@Override
-	public boolean writePlayCommand(Long idGame, TileColorEnum color, Move move) {
-		
+	public boolean writePlayCommand(Long idGame, TileColorEnum color, MoveDTO move) {
+		if(games.get(idGame) == null)
+			start(idGame);
 		int player = color.ordinal() + 1;
-		String moveString = getMoveString(move);
+		String moveString = converter.getMoveString(move);
 		String command = "play " + player + " " +  moveString; 
 		readResponse(idGame);
 		readError(idGame);
@@ -107,6 +117,8 @@ public class PentobiServiceImpl implements IPentobiService{
 
 	@Override
 	public String writeGenMoveCommand(Long idGame, TileColorEnum color, boolean playMove) {
+		if(games.get(idGame) == null)
+			start(idGame);
 		int player = color.ordinal() + 1;
 		String command = ""; 
 		if(playMove) {
@@ -147,21 +159,6 @@ public class PentobiServiceImpl implements IPentobiService{
 		}
 	}
 	
-	private String getMoveString(Move move) {
-		String result = "";
-		int left = move.getPosition().getLeft();
-		int top = move.getPosition().getTop();
-		for(TileSquare square: move.getTile().getTileDetails().getTileSquares()) {
-			int sLeft = square.getSquare().getLeft() + left;
-			int sTop = square.getSquare().getTop() + top;
-			StringBuilder sb = new StringBuilder();
-			sb.append((char) (sLeft+'A'));
 	
-			result += sb.toString() + (20-sTop) + ",";
-		}
-		result = result.substring(0, result.length()-1);
-		System.out.println(result);
-		return result;
-	}
 
 }

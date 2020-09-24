@@ -1,6 +1,7 @@
 package cs.blokus.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,9 @@ public class Player {
 	@ManyToOne
 	@JoinColumn(name = "idGame", nullable = false)
 	private Game game;
+	
+	@Column(name = "isOut")
+	private boolean out;
 
 	@OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
 	private PlayerDetails playerDetails;
@@ -33,6 +37,14 @@ public class Player {
 	
 	public Player() {
 
+	}
+
+	public boolean isOut() {
+		return out;
+	}
+
+	public void setOut(boolean out) {
+		this.out = out;
 	}
 
 	public Game getGame() {

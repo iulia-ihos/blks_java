@@ -16,7 +16,7 @@ public class Performance {
 	private Long idUser;
 	
 	@OneToOne
-    @JoinColumn
+    @JoinColumn(name = "")
     @MapsId
     private User user;
 	
@@ -26,11 +26,24 @@ public class Performance {
 	@Column(name = "numberGamesWon")
 	private int numberGamesWon;
 	
-	public Performance(Long idUser, User user, int numberGamesPlayed, int numberGamesWon) {
+	@Column(name = "ranking")
+	private double  ranking;
+	
+	public Performance(Long idUser, int numberGamesPlayed, int numberGamesWon) {
 		this.idUser = idUser;
-		this.user = user;
+		this.user = new User(idUser);
 		this.numberGamesPlayed = numberGamesPlayed;
 		this.numberGamesWon = numberGamesWon;
+	}
+	
+	
+	
+	public double getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(double ranking) {
+		this.ranking = ranking;
 	}
 
 	public Performance() {}

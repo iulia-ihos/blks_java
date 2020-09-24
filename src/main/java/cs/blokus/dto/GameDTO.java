@@ -3,6 +3,8 @@ package cs.blokus.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import cs.blokus.enums.GameStatusEnum;
 
 @SuppressWarnings("serial")
@@ -13,6 +15,8 @@ public class GameDTO implements Serializable {
 	private Date endTime;
 	private UserDTO winner;
 	private GameStatusEnum status;
+	
+	@JsonProperty(value="usingPentobi")   
 	private boolean usingPentobi;
 	
 	
@@ -78,10 +82,12 @@ public class GameDTO implements Serializable {
 		this.status = status;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "GameDTO [idGame=" + idGame + ", startTime=" + startTime + ", endTime=" + endTime + ", winner=" + winner
-				+ ", status=" + status +  "]";
+				+ ", status=" + status + ", usingPentobi=" + usingPentobi + "]";
 	}
 
 	public boolean isUsingPentobi() {

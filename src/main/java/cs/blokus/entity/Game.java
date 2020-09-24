@@ -169,7 +169,8 @@ public class Game {
 	@Override
 	public String toString() {
 		return "Game [idGame=" + idGame + ", startTime=" + startTime + ", endTime=" + endTime + 
-				", status=" + status;
+				", status=" + status + 
+				", pentobi=" + usingPentobi;
 	}
 	
 	

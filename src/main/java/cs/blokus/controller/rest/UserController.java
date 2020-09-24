@@ -1,8 +1,6 @@
 package cs.blokus.controller.rest;
 
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,32 +21,29 @@ import cs.blokus.exceptions.DataDuplicateException;
 import cs.blokus.security.jwt.JwtUtils;
 import cs.blokus.security.message.request.LoginForm;
 import cs.blokus.security.message.response.JwtResponse;
+import cs.blokus.service.IPerformanceService;
 import cs.blokus.service.IUserService;
 
 
 @RestController
 @RequestMapping("user")
 public class UserController {
-		private final IUserService userService;
+		@Autowired
+		private IUserService userService;
 		
-
-	    @Autowired
-	    public UserController(IUserService userService) {
-	        this.userService = userService;
-	    }
+		@Autowired
+		private IPerformanceService perfService;
 	    
 	    @Autowired
 		private AuthenticationManager authenticationManager;
 	    
-
 		@Autowired
 		JwtUtils jwtProvider;
 		
 	    @PostMapping("login")
-	    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+	    public ResponseEntity<?> authenticateUser(@RequestBody LoginForm loginRequest) {
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-			
 			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -77,13 +72,8 @@ public class UserController {
 		
 		@GetMapping("/score")
 		public PerformanceDTO getScore(){ 
-			PerformanceDTO perf = new PerformanceDTO();
-			UserDTO user = new UserDTO();
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			user.setUsername(userDetails.getUsername());
-			perf.setUser(user);
-			perf.setNumberGamesPlayed(1);
-			perf.setNumberGamesWon(1);
+			PerformanceDTO perf = perfService.getPerformanceByUsername(userDetails.getUsername());
 			return perf;	
 		}  
 }

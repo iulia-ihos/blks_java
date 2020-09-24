@@ -15,7 +15,7 @@ import cs.blokus.enums.TileNameEnum;
 @Repository
 public interface TileDAO extends JpaRepository<Tile, Long> {
 
-	@Query("select tg.tile from  TileGame tg where tg.game.idGame = ?1 and tg.isUsed = false and tg.tile.color = ?2 "
+	@Query("select tg.tile from  TileGame tg where tg.idTileGame.idGame = ?1 and tg.isUsed = false and tg.tile.color = ?2 "
 			+ " order by tg.tile.tileDetails.numberSquares desc")
 	List<Tile> getAvailableTiles(Long idGame, TileColorEnum color);
 	

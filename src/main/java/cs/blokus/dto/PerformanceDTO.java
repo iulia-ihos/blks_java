@@ -8,6 +8,7 @@ public class PerformanceDTO implements Serializable{
     private UserDTO user;
 	private int numberGamesPlayed;
 	private int numberGamesWon;
+	private double ranking;
 	
 	public PerformanceDTO(UserDTO user, int numberGamesPlayed, int numberGamesWon) {
 		this.user = user;
@@ -34,6 +35,14 @@ public class PerformanceDTO implements Serializable{
 	}
 	public void setNumberGamesWon(int numberGamesWon) {
 		this.numberGamesWon = numberGamesWon;
+	}
+
+	public double getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(double ranking) {
+		this.ranking = ranking;
 	}
 	
 	

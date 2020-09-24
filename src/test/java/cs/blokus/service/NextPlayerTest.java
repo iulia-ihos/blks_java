@@ -24,12 +24,6 @@ import cs.blokus.dto.Position;
 import cs.blokus.dto.TileDTO;
 import cs.blokus.enums.GameStatusEnum;
 import cs.blokus.enums.TileColorEnum;
-import cs.blokus.service.IBoardService;
-import cs.blokus.service.ICornerService;
-import cs.blokus.service.IGameService;
-import cs.blokus.service.IMoveService;
-import cs.blokus.service.IPlayerDetailsService;
-import cs.blokus.service.ITileService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,9 +33,6 @@ public class NextPlayerTest {
 
 	@Autowired
 	private IBoardService boardService;
-
-	@Autowired
-	private IMoveService moveService;
 	
 	@Autowired
 	private IGameService gameService;
@@ -77,7 +68,7 @@ public class NextPlayerTest {
 		System.out.println(cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()));
 		assertEquals(3, cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()).size());
 		
-		assertEquals(true , boardService.hasMove(TileColorEnum.red, game.getIdGame()));
+		assertEquals(true, boardService.hasMove(TileColorEnum.red, game.getIdGame()));
 		
 		coords = new ArrayList<>();
 		coords.add(new Position(2,2));
@@ -88,8 +79,6 @@ public class NextPlayerTest {
 		pos = new BoardPosition(coords);
 		
 		boardService.addToBoard(TileColorEnum.red, pos, game.getIdGame());
-		System.out.println("a");
-		System.out.println(cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()));
 		assertEquals(6, cornerService.getCornersForColor(TileColorEnum.red, game.getIdGame()).size());
 		
 	}

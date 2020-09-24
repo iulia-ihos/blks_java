@@ -24,8 +24,6 @@ public class PlayerServiceImpl implements IPlayerService {
 	private IPlayerDetailsService playerDetailsService;
 
 	
-
-
 	@Override
 	public PlayerDTO create(PlayerDTO playerDTO) {
 		PlayerDetailsDTO playerDetails = playerDetailsService.create(playerDTO.getPlayerDetails(), playerDTO);

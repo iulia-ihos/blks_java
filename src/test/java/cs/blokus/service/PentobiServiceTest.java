@@ -1,6 +1,7 @@
 package cs.blokus.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,12 +17,10 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-
 import cs.blokus.dao.MoveDAO;
-
-import cs.blokus.entity.Move;
+import cs.blokus.dto.MoveDTO;
 import cs.blokus.enums.TileColorEnum;
-import cs.blokus.service.IPentobiService;
+import cs.blokus.model_mapping.ModelMapping;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,6 +35,8 @@ public class PentobiServiceTest {
 	@Autowired
 	private MoveDAO moveDAO;
 
+	@Autowired
+	private ModelMapping mapper;
 
 	@Before
 	public void init() {
@@ -50,6 +51,7 @@ public class PentobiServiceTest {
 	
 	@Test
 	public void testGenMoveCommand() {
+		pentobiService.writeGenMoveCommand(1L, TileColorEnum.red, true);
 		assertNotEquals("= pass", pentobiService.writeGenMoveCommand(1L, TileColorEnum.red, true));
 		assertNotEquals("= pass", pentobiService.writeGenMoveCommand(1L, TileColorEnum.red, false));
 	}
@@ -57,9 +59,9 @@ public class PentobiServiceTest {
 	@Test
 	@DatabaseSetup(value = "/moves.xml")
 	public void testPlayCommand() {
-		Move move = moveDAO.getForGame(2L).get(0);
+		MoveDTO  move = mapper.map(moveDAO.getForGame(2L).get(0), MoveDTO.class);
 		assertEquals(true, pentobiService.writePlayCommand(1L, TileColorEnum.red, move));
-		move = moveDAO.getForGame(1L).get(0);
+		move = mapper.map(moveDAO.getForGame(1L).get(0), MoveDTO.class);
 		assertEquals(false, pentobiService.writePlayCommand(1L, TileColorEnum.red, move));
 	}
 }

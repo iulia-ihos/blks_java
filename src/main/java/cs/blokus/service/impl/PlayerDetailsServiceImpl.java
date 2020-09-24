@@ -14,6 +14,7 @@ import cs.blokus.dto.PlayerDetailsDTO;
 import cs.blokus.entity.Player;
 import cs.blokus.entity.PlayerDetails;
 import cs.blokus.entity.User;
+import cs.blokus.entity.id.PlayerDetailsId;
 import cs.blokus.enums.TileColorEnum;
 import cs.blokus.model_mapping.ModelMapping;
 import cs.blokus.service.IBoardService;
@@ -51,6 +52,7 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 		User user = userDAO.findByUsername(playerDetailsDTO.getUsername());
 		PlayerDetails pd = (PlayerDetails)modelMapper.map(playerDetailsDTO, PlayerDetails.class);
 		Player p = modelMapper.map(player,  Player.class);
+		pd.setIdPlayerDetails(new PlayerDetailsId());
 		pd.setUser(user);
     	pd.setPlayer(p);
 		p.setPlayerDetails(pd);
@@ -66,7 +68,7 @@ public class PlayerDetailsServiceImpl implements IPlayerDetailsService{
 	public PlayerDetailsDTO getNextPlayer(TileColorEnum currentColor, Long idGame) {
 		TileColorEnum nextColor = null;
 		nextColor = checkTheOtherColors(currentColor, idGame);
-		System.out.println("result");
+		System.out.println("next color");
 		System.out.println(nextColor);
 		if(nextColor == null) 
 			return null;

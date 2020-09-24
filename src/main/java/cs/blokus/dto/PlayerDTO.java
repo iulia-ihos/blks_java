@@ -11,6 +11,8 @@ public class PlayerDTO implements Serializable{
 	
 	private GameDTO game;
 	
+	private boolean out;
+	
 
 	public PlayerDTO() {
 	}
@@ -36,6 +38,14 @@ public class PlayerDTO implements Serializable{
 
 	public void setIdPlayer(Long idPlayer) {
 		this.idPlayer = idPlayer;
+	}
+	
+	public boolean isOut() {
+		return out;
+	}
+
+	public void setOut(boolean out) {
+		this.out = out;
 	}
 
 

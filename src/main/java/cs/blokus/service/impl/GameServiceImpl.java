@@ -34,10 +34,12 @@ public class GameServiceImpl implements IGameService {
 
 	@Override
 	public GameDTO create(GameDTO gameDTO) {
+		System.out.println(gameDTO);
 		Game game = (Game) modelMapper.map(gameDTO, Game.class);
 		Board savedBoard = boardService.createBoard(game);
 		GameDTO dto = modelMapper.map(savedBoard.getGame(), GameDTO.class);
 		tileGameService.createTileForGame(dto.getIdGame());
+
 		return dto;
 	}
 

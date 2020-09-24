@@ -50,7 +50,7 @@ public class MoveServiceTest {
 	@DatabaseSetup(value = "/datasets/moves.xml")
 	public void testCreateMove() {
 		tileGameService.createTileForGame(1L);
-		TilePositionDTO pos = new TilePositionDTO(0L, 0.0, 0.0, 0, false, false);
+		TilePositionDTO pos = new TilePositionDTO(0, 0, 0, false, false);
 		GameDTO game = new GameDTO(1L);
 		TileDTO tile = new TileDTO(2L);
 

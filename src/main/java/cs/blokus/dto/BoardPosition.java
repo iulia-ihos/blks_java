@@ -22,6 +22,11 @@ public class BoardPosition implements Serializable {
 	public void setCoords(List<Position> coords) {
 		this.coords = coords;
 	}
+
+	@Override
+	public String toString() {
+		return "BoardPosition [coords=" + coords + "]";
+	}
 	
 	
 

@@ -10,8 +10,19 @@ public class MoveMessage {
 	private PlayerDetailsDTO nextPlayer;
 	private PlayerDetailsDTO currentPlayer;
 	private BoardPosition boardPosition;
+	private int [][] board;
 	
 	
+	public int[][] getBoard() {
+		return board;
+	}
+
+
+	public void setBoard(int[][] board) {
+		this.board = board;
+	}
+
+
 	public MoveMessage(MoveDTO move, PlayerDetailsDTO currentPlayer, PlayerDetailsDTO nextPlayer) {
 		this.move = move;
 		this.nextPlayer = nextPlayer;

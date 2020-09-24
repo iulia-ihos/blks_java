@@ -4,9 +4,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cs.blokus.dao.PerformanceDAO;
 import cs.blokus.dao.UserDAO;
 import cs.blokus.dto.UserDTO;
 import cs.blokus.encryption.Encryption;
+import cs.blokus.entity.Performance;
 import cs.blokus.entity.User;
 import cs.blokus.exceptions.DataDuplicateException;
 import cs.blokus.service.IUserService;
@@ -19,6 +21,9 @@ public class UserServiceImpl implements IUserService{
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private PerformanceDAO perfDAO;
 
 	public UserDTO create(UserDTO user) throws DataDuplicateException {
 
@@ -30,8 +35,9 @@ public class UserServiceImpl implements IUserService{
 		}
 						
 		user.setPassword(Encryption.encryptPassword(user.getPassword()));
-		User usr = mapper.map(user, User.class);
-		return mapper.map(userDAO.save(usr), UserDTO.class);
+		User usr = userDAO.save(mapper.map(user, User.class));
+		perfDAO.save(new Performance(usr.getIdUser(), 0, 0));
+		return mapper.map(usr, UserDTO.class);
 	}
 
 	@Override

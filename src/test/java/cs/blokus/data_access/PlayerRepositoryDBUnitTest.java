@@ -54,6 +54,13 @@ public class PlayerRepositoryDBUnitTest {
 	    Player foundEntity = playerDAO.findById(player.getIdPlayer()).get();
 	   
 	    assertNotNull(foundEntity);
-	    assertEquals( foundEntity.getGame().getIdGame(), player.getGame().getIdGame());
+	    assertEquals(foundEntity.getGame().getIdGame(), player.getGame().getIdGame());
+	}
+	
+	@Test
+	@DatabaseSetup(value = "/setup.xml")
+	public void testGetPlayerForColorAndGame() {
+		
+	    assertNotNull(playerDAO.getPlayerForGameAndColor(1L, TileColorEnum.red));
 	}
 }

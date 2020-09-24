@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TilePositionDTO implements Serializable{
 	
 	private Long idTilePosition;
-	private double top;
-	private double left;
+	private int top;
+	private int left;
 	private int angle;
 	 
 	@JsonProperty(value="isFlippedHorizontally")   
@@ -18,9 +18,8 @@ public class TilePositionDTO implements Serializable{
 	@JsonProperty(value="isFlippedVertically") 
 	private boolean isFlippedVertically;
 	
-	public TilePositionDTO(Long idTilePosition, double top, double left, int angle, boolean isFlippedHorizontally,
+	public TilePositionDTO( int top, int left, int angle, boolean isFlippedHorizontally,
 			boolean isFlippedVertically) {
-		this.idTilePosition = idTilePosition;
 		this.top = top;
 		this.left = left;
 		this.angle = angle;
@@ -39,19 +38,19 @@ public class TilePositionDTO implements Serializable{
 		this.idTilePosition = idTilePosition;
 	}
 
-	public double getTop() {
+	public int getTop() {
 		return top;
 	}
 
-	public void setTop(double top) {
+	public void setTop(int top) {
 		this.top = top;
 	}
 
-	public double getLeft() {
+	public int getLeft() {
 		return left;
 	}
 
-	public void setLeft(double left) {
+	public void setLeft(int left) {
 		this.left = left;
 	}
 

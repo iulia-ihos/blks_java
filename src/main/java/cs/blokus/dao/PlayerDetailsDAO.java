@@ -21,7 +21,7 @@ public interface PlayerDetailsDAO extends JpaRepository<PlayerDetails, PlayerDet
 	
 	@Query("select pd from  PlayerDetails pd where pd.color = ?1 and "
 			+ "exists (select player from Player player where player.game.idGame = ?2 and "
-			+ "pd.idPlayerDetails.idPlayer = player.playerDetails.idPlayerDetails.idPlayer)")
+			+ "pd.player.idPlayer = player.playerDetails.player.idPlayer)")
 	PlayerDetails getPlayer(TileColorEnum color, Long idGame);
 
 	@Query("select pd from  PlayerDetails pd where "

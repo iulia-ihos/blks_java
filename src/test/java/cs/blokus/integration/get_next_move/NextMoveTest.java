@@ -186,7 +186,7 @@ public class NextMoveTest {
 		if(t != null) {
 			System.out.println(t.getTileDetails().getName());
 			move.setTile(t);
-			move.setPosition(new TilePositionDTO(0L, topMost, leftMost, 0, false, false));
+			move.setPosition(new TilePositionDTO(topMost, leftMost, 0, false, false));
 			int tm = topMost;
 			int lm = leftMost;
 			t.getTileDetails().getTileSquares().stream().forEach(ts -> {
@@ -198,7 +198,7 @@ public class NextMoveTest {
 			System.out.println(" var " + var.getTileDetails().getName());
 			move.setTile(mapper.map(tileDAO.findByColorAndTileDetailsName(findColor(line.charAt(1)),
 					var.getTileDetails().getName()), TileDTO.class));
-			move.setPosition(new TilePositionDTO(0L, topMost, leftMost, var.getAngle(),
+			move.setPosition(new TilePositionDTO(topMost, leftMost, var.getAngle(),
 					var.isFlipH(), var.isFlipV()));
 			int[][] m = var.getTile();
 			for(int i = 0; i < m.length; i++)

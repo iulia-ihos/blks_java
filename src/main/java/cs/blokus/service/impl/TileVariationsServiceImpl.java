@@ -27,7 +27,7 @@ public class TileVariationsServiceImpl implements ITileVariationsService{
 
 	@Override
 	public void saveAll() {
-		if(tileVariationsDAO.count() != 70) {
+		if(tileVariationsDAO.count() != 91) {
 			tileVariationsDAO.deleteAll();
 			List<TileDetails> details = tileDetailsDAO.findAll();
 			for(TileDetails detail: details) {

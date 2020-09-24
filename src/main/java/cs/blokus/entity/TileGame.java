@@ -1,28 +1,31 @@
 package cs.blokus.entity;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cs.blokus.entity.id.TileGameId;
 
 @Entity
 @Table(name = "tileGame")
 public class TileGame {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idTileGame;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Long idTileGame;
+	
+	@EmbeddedId
+	private TileGameId idTileGame;
 	
 	@ManyToOne
-	@JoinColumn(name = "idGame")
+	@JoinColumn(name = "idGame", insertable = false, updatable = false)
 	private Game game;
 	
 	@ManyToOne
-	@JoinColumn(name = "idTile")
+	@JoinColumn(name = "idTile", insertable = false, updatable = false)
 	private Tile tile;
 	
 	@Column 
@@ -31,18 +34,16 @@ public class TileGame {
 	public TileGame() {
 	}
 
-	public TileGame(Long idTileGame, Game game, Tile tile, boolean isUsed) {
+	public TileGame(TileGameId idTileGame, boolean isUsed) {
 		this.idTileGame = idTileGame;
-		this.game = game;
-		this.tile = tile;
 		this.isUsed = isUsed;
 	}
 
-	public Long getIdTileGame() {
+	public TileGameId getIdTileGame() {
 		return idTileGame;
 	}
 
-	public void setIdTileGame(Long idTileGame) {
+	public void setIdTileGame(TileGameId idTileGame) {
 		this.idTileGame = idTileGame;
 	}
 

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import cs.blokus.dao.TileDAO;
 import cs.blokus.dao.TileGameDAO;
-import cs.blokus.entity.Game;
 import cs.blokus.entity.Tile;
 import cs.blokus.entity.TileGame;
+import cs.blokus.entity.id.TileGameId;
 import cs.blokus.service.ITileGameService;
 
 @Component
@@ -23,10 +23,9 @@ public class TileGameServiceImpl implements ITileGameService{
 
 	@Override
 	public void createTileForGame(Long idGame) {
-		Game game  = new Game(idGame);
 		List<Tile> tiles = tileDAO.findAll();
 		for(Tile tile: tiles) {
-			tileGameDAO.save(new TileGame(0L, game, tile, false));
+			tileGameDAO.save(new TileGame(new TileGameId(idGame, tile.getIdTile()), false));
 		}
 	}
 	

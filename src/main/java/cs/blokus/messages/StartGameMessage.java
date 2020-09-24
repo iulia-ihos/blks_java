@@ -3,7 +3,6 @@ package cs.blokus.messages;
 import java.util.List;
 
 import cs.blokus.dto.PlayerDTO;
-import cs.blokus.dto.TileDTO;
 
 public class StartGameMessage {
 

@@ -1,5 +1,9 @@
 package cs.blokus.controller.rest;
 
+
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cs.blokus.dto.GameDTO;
+import cs.blokus.enums.GameStatusEnum;
 import cs.blokus.service.IGameService;
 
 @RestController
@@ -36,11 +41,12 @@ public class GameController {
 	
 	@PostMapping
 	public GameDTO add(@RequestBody GameDTO game) {
-    	System.out.println(game);
+		if(game.getStatus() == GameStatusEnum.STARTED)
+			game.setStartTime(new Date());
     	return gameService.create(game);	
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("{id}")
 	public GameDTO getById(@PathVariable Long id) {
 	       return gameService.getById(id);	
 	}

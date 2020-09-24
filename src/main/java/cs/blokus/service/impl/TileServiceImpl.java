@@ -36,6 +36,7 @@ public class TileServiceImpl implements ITileService {
 	@Autowired
 	private ITileVariationsService tileVariationsService;
 	
+	
 	@Override
 	public List<TileDTO> getAvailableForGame(Long idGame, TileColorEnum color) {
 		List<Tile> tiles = tileDAO.getAvailableTiles(idGame, color);
@@ -59,6 +60,12 @@ public class TileServiceImpl implements ITileService {
 		tiles.stream().forEach(tile -> dtos.add(modelMapper.map(tile, TileDTO.class)));
 	
 		return dtos;
+	}
+	
+
+	@Override
+	public TileDTO getForColorAndName(TileColorEnum color, TileNameEnum name) {
+		return modelMapper.map(tileDAO.findByColorAndTileDetailsName(color, name), TileDTO.class);
 	}
 
 	private void addAll() {
